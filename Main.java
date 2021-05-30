@@ -103,5 +103,3 @@ public class Main
         CloseWindow();       // Close window and OpenGL context
     }
 }
-
-//Teste git
