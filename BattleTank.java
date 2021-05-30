@@ -25,6 +25,11 @@ public class BattleTank
         this.player2 = p2;
     }
 
+    public void draw(){
+        DrawRectangle(this.tankPosition, 380, 41, 20, this.color); //width, height, lenght
+        DrawRectangle(this.tankPosition + 15, 368, 10, 12, this.color);
+    }
+
     public void setTankPosition(int newPosition){
         this.tankPosition = newPosition;
     }
