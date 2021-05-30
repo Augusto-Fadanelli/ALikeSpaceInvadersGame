@@ -9,14 +9,15 @@ public class Main
 {
     public static void main(String [] args){
        
-        Screen screen = new Screen(800, 450, BLACK);
         SplashScreen splash = new SplashScreen(800, 450, BLACK);
+        MenuScreen menu = new MenuScreen(800, 450, BLACK);
+        GameScreen game = new GameScreen(1000, 600, BLACK);
 
-        screen.initWindow();
+        splash.initWindow();
 
         boolean twoPlayers = true;
-        BattleTank tank1 = new BattleTank(screen.getScreenWidth(), twoPlayers, 0); //Player 1
-        BattleTank tank2 = new BattleTank(screen.getScreenWidth(), twoPlayers, 1); //Player 2
+        BattleTank tank1 = new BattleTank(game.getScreenWidth(), twoPlayers, 0); //Player 1
+        BattleTank tank2 = new BattleTank(game.getScreenWidth(), twoPlayers, 1); //Player 2
         TankBullet bullet1 = new TankBullet(); //Bullets of tank1
         TankBullet bullet2 = new TankBullet(); //Bullets of tank2
 
@@ -24,16 +25,38 @@ public class Main
 
         SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
 
+        //Splash screen
         boolean screenFlag = true;
-
         while(screenFlag && !WindowShouldClose()){
             BeginDrawing();
             splash.draw();
-            if(IsKeyDown(KEY_ENTER)){
+            if(IsKeyPressed(KEY_ENTER)){
                 screenFlag = false;
             }
             EndDrawing();
         }
+
+        //Menu screen
+        screenFlag = true;
+        while(screenFlag && !WindowShouldClose()){
+            BeginDrawing();
+            menu.draw();
+            
+            //Input
+            if(IsKeyPressed(KEY_DOWN)){
+                menu.input(1);
+            }else if(IsKeyPressed(KEY_UP)){
+                menu.input(-1);
+            }
+            if(IsKeyPressed(KEY_ENTER)){
+                screenFlag = false;
+            }
+            EndDrawing();
+        }
+
+
+        CloseWindow();       // Close window and OpenGL context
+        game.initWindow();
 
         // Main game loop
         while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -64,11 +87,9 @@ public class Main
             ClearBackground(BLACK);
             
             //Battle tanks
-            DrawRectangle(tank1.getTankPosition(), 380, 41, 20, tank1.getColor()); //width, height, lenght
-            DrawRectangle(tank1.getTankPosition()+15, 368, 10, 12, tank1.getColor());
+            tank1.draw();
             if(twoPlayers){
-                DrawRectangle(tank2.getTankPosition(), 380, 41, 20, tank2.getColor()); //width, height, lenght
-                DrawRectangle(tank2.getTankPosition()+15, 368, 10, 12, tank2.getColor());
+                tank2.draw();
             }
 
             //Tank bullets
