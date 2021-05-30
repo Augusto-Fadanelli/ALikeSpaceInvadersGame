@@ -17,7 +17,7 @@ public class SplashScreen extends Screen
 		DrawText("SPACE INVADERS", 170, 170, 50, LIGHTGRAY);
 		DrawText("game!", 570, 209, 20, LIGHTGRAY);
 		DrawText("Press ENTER to continue...", 260, 300, 20, RAYWHITE);
-		DrawText("Development by: Augusto Fadanelli", 10, 430, 15, RAYWHITE);
+		DrawText("Developed by: Augusto Fadanelli", 10, 430, 15, RAYWHITE);
 	}
 
 }
