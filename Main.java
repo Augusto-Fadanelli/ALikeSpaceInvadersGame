@@ -3,13 +3,19 @@ import com.raylib.Jaylib.Camera;
 import com.raylib.Raylib;
 import static com.raylib.Jaylib.*;
 
-//import src.Screen;
+import java.io.IOException; //Manipular arquivos
 
 public class Main
 {
-    public static void main(String [] args){
-       
-        SplashScreen splash = new SplashScreen(800, 450, BLACK);
+    public static void main(String args[]) throws IOException{
+
+        //Manipular arquivos
+        String path = "DAT/display_resolution.dat";
+        Files display = new Files();
+        //Files.write(path);
+        display.read(path);
+
+        SplashScreen splash = new SplashScreen(display.getResolutions(0), display.getResolutions(1), BLACK);
         MenuScreen menu = new MenuScreen(800, 450, BLACK);
         GameScreen game = new GameScreen(1000, 600, BLACK);
 
