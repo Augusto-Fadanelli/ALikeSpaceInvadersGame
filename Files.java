@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Files{
 
-	private String resolutions[] = new String[2];
+	private String vet[] = new String[10];
 
 	public void read(String path) throws IOException {
 		BufferedReader buffRead = new BufferedReader(new FileReader(path));
@@ -16,10 +16,14 @@ public class Files{
 		while (true) {
 			line = buffRead.readLine();
 			if (line != null) {
-				this.resolutions[i] = line;
+				this.vet[i] = line;
 				i++;
-			} else
+			} else{
 				break;
+			}
+			if(i == 10){
+				break;
+			}
 		}
 		buffRead.close();
 	}
@@ -35,7 +39,7 @@ public class Files{
 	}
 
 	public int getResolutions(int pos){
-		return Integer.parseInt(this.resolutions[pos]);
+		return Integer.parseInt(this.vet[pos]);
 	}
 
 }

@@ -48,4 +48,8 @@ public class MenuScreen extends Screen
 		this.chooseMenuColor[this.choose] = GREEN;
 	}
 
+	public int getChoose(){
+		return this.choose;
+	}
+
 }

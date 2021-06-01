@@ -4,7 +4,7 @@
 
 import static com.raylib.Jaylib.*; //for InitWindow(); and Color type
 
-public class Screen
+public abstract class Screen
 {
 	private int screen[] = new int[2];
 	private Color backgroundColor;	
