@@ -17,6 +17,7 @@ public abstract class Screen
 
 	public void initWindow(){
 		InitWindow(this.screen[0], this.screen[1], "Space Invaders!");
+		SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 	}
 
 	public int getScreenWidth(){
@@ -26,11 +27,10 @@ public abstract class Screen
 		return this.screen[1];
 	}
 
-	/*public void setBackgroundColor(Color c){
-		this.backgroundColor = c;
-	}*/
 	public Color getBackgroundColor(){
 		return this.backgroundColor;
 	}
+
+	public abstract void draw();
 
 }
