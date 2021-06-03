@@ -3,7 +3,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class Files{
 
@@ -28,12 +28,15 @@ public class Files{
 		buffRead.close();
 	}
 
-	public void write(String path) throws IOException {
+	public void write(String path, String width, String height) throws IOException {
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
 		String line = "";
-		Scanner in = new Scanner(System.in);
-		System.out.println("Escreva algo: ");
-		line = in.nextLine();
+		//Scanner in = new Scanner(System.in);
+		//System.out.println("Escreva algo: ");
+		//line = in.nextLine();
+		line = width;
+		buffWrite.append(line + "\n");
+		line = height;
 		buffWrite.append(line + "\n");
 		buffWrite.close();
 	}
@@ -41,5 +44,4 @@ public class Files{
 	public int getResolutions(int pos){
 		return Integer.parseInt(this.vet[pos]);
 	}
-
 }

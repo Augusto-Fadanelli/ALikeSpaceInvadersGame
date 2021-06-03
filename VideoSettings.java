@@ -24,7 +24,7 @@ public class VideoSettings extends Screen
 	@Override
 	public void draw(){
 
-		while(!IsKeyPressed(KEY_ENTER) && !WindowShouldClose()){
+		while(!IsKeyPressed(KEY_SPACE) && !WindowShouldClose()){
 
         	BeginDrawing();
         	
@@ -38,6 +38,8 @@ public class VideoSettings extends Screen
 				text = resolutions[j] + "x";
 				j++;
 				text += resolutions[j];
+				j++;
+				
 				DrawText(text, 280, height, 30, chooseMenuColor[i]);
 				height += 30;
 			}
@@ -72,6 +74,14 @@ public class VideoSettings extends Screen
 		if(this.cont == 10){
 			this.cont = 0;
 		}
+	}
+
+	public String getWidthChoose(){
+		return this.resolutions[this.choose*2];
+	}
+
+	public String getHeightChoose(){
+		return this.resolutions[this.choose*2+1];
 	}
 
 }

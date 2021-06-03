@@ -31,28 +31,35 @@ public class Main
         //Splash screen
         splash.draw();
 
-        //Menu screen
-        menu.draw();
+        boolean flag = true;
+        while(flag && !WindowShouldClose()){
+            //Menu screen
+            switch(menu.chooseDraw()){
+                case 0:
+                    //Game Screen Single Player
+                    game.setTwoPlayers(false);
+                    game.draw();
+                break;
+                case 1:
+                    //Game Screen Multiplayer Player
+                    game.setTwoPlayers(true);
+                    game.draw();
+                break;
+                case 2:
 
-        switch(menu.getChoose()){
-            case 0:
-                game.setTwoPlayers(false);
-                game.draw();
-            break;
-            case 1:
-                game.setTwoPlayers(true);
-                game.draw();
-            break;
-            case 2:
+                break;
+                case 3:
+                    video_settings.draw();
+                    display.write("DAT/display_resolution.dat", video_settings.getWidthChoose(), video_settings.getHeightChoose());
+                break;
+                case 4:
 
-            break;
-            case 3:
-                video_settings.draw();
-            break;
-            case 4:
-
-            break;
-        }
+                break;
+                case 5:
+                    flag = false;
+                break;
+            }
+        }  
 
         // De-Initialization
         CloseWindow();       // Close window and OpenGL context

@@ -31,6 +31,20 @@ public abstract class Screen
 		return this.backgroundColor;
 	}
 
+	//Position methods
+	public int positionCentralize(int size, double proportionFor12){
+		double position;
+		position = (size - size /12 * proportionFor12)/2;
+		return (int)position;
+	}
+
+	/*public int relativePosition(int screenSize, double position, double relativeP){
+		double position;
+
+		return (int)position;
+	}*/
+
+	//Abstract methods
 	public abstract void draw();
 
 }
