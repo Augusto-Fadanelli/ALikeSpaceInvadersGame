@@ -21,31 +21,42 @@ public class VideoSettings extends Screen
 		}
 	}
 
+	@Override
 	public void draw(){
-		ClearBackground(getBackgroundColor());
 
-		int height = 200;
-		DrawText("Video Settings", 280, 100, 50, RAYWHITE);
-		String text;
-		int j = 0;
-		for(int i=0; i<5; i++){
-			text = resolutions[j] + "x";
-			j++;
-			text += resolutions[j];
-			DrawText(text, 280, height, 30, chooseMenuColor[i]);
-			height += 30;
-		}
+		while(!IsKeyPressed(KEY_ENTER) && !WindowShouldClose()){
+
+        	BeginDrawing();
+        	
+        	ClearBackground(getBackgroundColor());
+
+			int height = 200;
+			DrawText("Video Settings", 280, 100, 50, RAYWHITE);
+			String text;
+			int j = 0;
+			for(int i=0; i<5; i++){
+				text = resolutions[j] + "x";
+				j++;
+				text += resolutions[j];
+				DrawText(text, 280, height, 30, chooseMenuColor[i]);
+				height += 30;
+			}
+                    
+			input();
+
+        	EndDrawing();
+        }
 	}
 
-	public void input(int c){ //-1 up - 1 down
+	public void input(){ //-1 up - 1 down
 		this.chooseMenuColor[this.choose] = RAYWHITE;
-		if(c == -1){ //up
+		if(IsKeyPressed(KEY_UP)){ //up
 			if(this.choose == 0){
 				this.choose = 4;
 			}else{
 				this.choose--;
 			}
-		}else if(c == 1){ //down
+		}else if(IsKeyPressed(KEY_DOWN)){ //down
 			if(this.choose == 4){
 				this.choose = 0;
 			}else{
