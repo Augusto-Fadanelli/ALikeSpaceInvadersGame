@@ -31,11 +31,14 @@ public abstract class Screen
 		return this.backgroundColor;
 	}
 
-	//Position methods
-	public int positionCentralize(int size, double proportionFor12){
-		double position;
-		position = (size - size /12 * proportionFor12)/2;
-		return (int)position;
+	//Position and Size methods
+	public int positionCentralize(int screenSize, double proportionFor12){
+		return (int)((screenSize - screenSize /12 * proportionFor12)/2);
+	}
+
+	public int size(int s){
+		s /= 10;
+		return (int)(s * this.screen[0] /64);
 	}
 
 	/*public int relativePosition(int screenSize, double position, double relativeP){

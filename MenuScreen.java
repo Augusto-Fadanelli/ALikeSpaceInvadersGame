@@ -8,9 +8,14 @@ public class MenuScreen extends Screen
 {
 	private int choose = 0; //Choose in menu
 	private Color chooseMenuColor[] = new Color[6];
+	private int width;
+	private int height;
 
-	public MenuScreen(int width, int height, Color c){
-		super(width, height, c);
+	public MenuScreen(int w, int h, Color c){
+		super(w, h, c);
+
+		this.width = w;
+		this.height = h;
 
 		//set chooseMenuColor
 		this.chooseMenuColor[0] = GREEN;
@@ -22,10 +27,6 @@ public class MenuScreen extends Screen
 	@Override
 	public void draw(){
 
-		int size[] = new int[2];
-		size[0] = (int)(5 * this.width /64); //Size 30 inn 
-		size[1] = (int)(3 * this.width /64);
-
 		while(!IsKeyPressed(KEY_ENTER) && !WindowShouldClose()){
             BeginDrawing();
             
@@ -33,57 +34,57 @@ public class MenuScreen extends Screen
 
 			DrawText(
 				"Menu", 
-				290, 
-				100, 
-				50, 
+				positionCentralize(this.width, 2.4), 
+				(int)(this.height/8*2), 
+				size(50), 
 				RAYWHITE);
 
 			//choose = 0
 			DrawText(
 				"Single Player", 
-				280, 
-				200, 
-				30, 
+				positionCentralize(this.width, 3.8), 
+				(int)(this.height/8*2 + size(50)), 
+				size(30), 
 				chooseMenuColor[0]);
 
 			//choose = 1
 			DrawText(
 				"Two Players", 
-				280, 
-				230, 
-				30, 
+				positionCentralize(this.width, 3.6), 
+				(int)(this.height/8*2 + size(80)), 
+				size(30), 
 				chooseMenuColor[1]);
 
 			//choose = 2
 			DrawText(
 				"Rank", 
-				280, 
-				260, 
-				30, 
+				positionCentralize(this.width, 1.4), 
+				(int)(this.height/8*2 + size(110)), 
+				size(30), 
 				chooseMenuColor[2]);
 
 			//choose = 3
 			DrawText(
 				"Video Settings", 
-				280, 
-				290, 
-				30, 
+				positionCentralize(this.width, 4.2), 
+				(int)(this.height/8*2 + size(140)), 
+				size(30), 
 				chooseMenuColor[3]);
 
 			//choose = 4
 			DrawText(
 				"About", 
-				280, 
-				320, 
-				30, 
+				positionCentralize(this.width, 1.7), 
+				(int)(this.height/8*2 + size(170)), 
+				size(30), 
 				chooseMenuColor[4]);
 
 			//choose = 5
 			DrawText(
 				"Exit", 
-				280, 
-				350, 
-				30, 
+				positionCentralize(this.width, 1.1), 
+				(int)(this.height/8*2 + size(200)), 
+				size(30), 
 				chooseMenuColor[5]);
             
             input();

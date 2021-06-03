@@ -10,9 +10,14 @@ public class VideoSettings extends Screen
 	private Color chooseMenuColor[] = new Color[5];
 	private String resolutions[] = new String[10];
 	private int cont = 0;
+	private int width;
+	private int height;
 
-	public VideoSettings(int width, int height, Color c){
-		super(width, height, c);
+	public VideoSettings(int w, int h, Color c){
+		super(w, h, c);
+
+		this.width = w;
+		this.height = h;
 
 		//set chooseMenuColor
 		this.chooseMenuColor[0] = GREEN;
@@ -30,8 +35,9 @@ public class VideoSettings extends Screen
         	
         	ClearBackground(getBackgroundColor());
 
-			int height = 200;
-			DrawText("Video Settings", 280, 100, 50, RAYWHITE);
+			int h = (int)(this.height/8*2);
+			DrawText("Video Settings", positionCentralize(this.width, 7), h, size(50), RAYWHITE);
+			h += size(50);
 			String text;
 			int j = 0;
 			for(int i=0; i<5; i++){
@@ -40,8 +46,8 @@ public class VideoSettings extends Screen
 				text += resolutions[j];
 				j++;
 				
-				DrawText(text, 280, height, 30, chooseMenuColor[i]);
-				height += 30;
+				DrawText(text, positionCentralize(this.width, 2.4), h, size(30), chooseMenuColor[i]);
+				h += size(30);
 			}
                     
 			input();
