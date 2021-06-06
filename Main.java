@@ -1,6 +1,7 @@
 //import com.raylib.Jaylib.Vector3;
 //import com.raylib.Jaylib.Camera;
 //import com.raylib.Raylib;
+
 import static com.raylib.Jaylib.*;
 
 import java.io.IOException; //Manipular arquivos
