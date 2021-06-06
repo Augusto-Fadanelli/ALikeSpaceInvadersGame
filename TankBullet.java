@@ -12,5 +12,11 @@ public class TankBullet
 	public int getShootRate(){
 		return this.shootRate;
 	}
+
+	public void timeShootRate(){
+		if(this.shootRate > 0){
+			this.shootRate--;
+		}
+	}
 }
 

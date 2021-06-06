@@ -12,17 +12,24 @@ import static com.raylib.Jaylib.*; //for Color type
 public class BattleTank
 {
     
-    private int tankPosition[] = new int[2]; //Position in width
+    //Textures
     private Texture2D battleTank[] = new Texture2D[4];
+
+    //Size and Position
+    private int tankPosition[] = new int[2]; //Position in width
     private int height;
-    private boolean player2 = false; //Informs if there's two players
-    private int speed;
-    //private float timer = 0.0f;
     private int direction;
-    private boolean shoot = false;
+
+    //Frames and Time
+    //private float timer = 0.0f;
+    private int speed;
     private int frame = 0;
 
-    private Rectangle teste;
+    //Mechanics and Others
+    private boolean player2 = false; //Informs if there's two players
+    private boolean shoot = false;
+    TankBullet bullet1 = new TankBullet(); //Bullets of tank1
+    TankBullet bullet2 = new TankBullet(); //Bullets of tank2
 
     public BattleTank(int screenWidth, int screenHeight, boolean p2, int player){
         this.height = screenHeight;
@@ -56,8 +63,6 @@ public class BattleTank
     }
 
     public void draw(){
-        //DrawRectangle(this.tankPosition, 380, 41, 20, this.color); //width, height, lenght
-        //DrawRectangle(this.tankPosition + 15, 368, 10, 12, this.color);
 
         if(this.direction == -1){ //Left
             if(true == this.shoot){
@@ -73,8 +78,55 @@ public class BattleTank
             }
         }
 
-            //DrawTexture(this.battleTank[frame], this.tankPosition[0], this.tankPosition[1], WHITE);
-            DrawTextureEx(this.battleTank[frame], new Vector2(this.tankPosition[0], this.tankPosition[1]), 0.0f, (float)this.height/720, WHITE);
+            DrawTextureEx(
+                this.battleTank[frame], 
+                new Vector2(this.tankPosition[0], 
+                    this.tankPosition[1]), 
+                0.0f, 
+                (float)this.height/720, 
+                WHITE);
+    }
+
+    public void input(int player){ //1 or 2
+        if(1 == player){
+            if (IsKeyDown(KEY_S)){
+                this.tankPosition[0] += this.speed;
+                this.direction = 1;
+            } 
+            if (IsKeyDown(KEY_A)){
+                this.tankPosition[0] -= this.speed;
+                this.direction = -1;
+            }
+            if (IsKeyDown(KEY_SPACE)){
+                if(0 == bullet1.getShootRate()){
+                    this.shoot = true;
+                    bullet1.setShootRate(50);
+                }
+            }else{
+                this.shoot = false;
+            }
+            bullet1.timeShootRate();
+
+        }else{
+            if (IsKeyDown(KEY_RIGHT)){
+                    this.tankPosition[0] += this.speed;
+                    this.direction = 1;
+            }
+            if (IsKeyDown(KEY_LEFT)){
+                this.tankPosition[0] -= this.speed;
+                this.direction = -1;
+            }
+            if (IsKeyDown(KEY_M)){
+                if(0 == bullet2.getShootRate()){
+                    this.shoot = true;
+                    bullet2.setShootRate(50);
+                }
+            }else{
+                this.shoot = false;
+            }
+            bullet2.timeShootRate();
+        }
+
     }
 
     public void setDirection(int d){ //-1 Left, 1 Right
