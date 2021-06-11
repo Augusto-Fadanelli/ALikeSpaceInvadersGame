@@ -7,6 +7,8 @@ import static com.raylib.Jaylib.*; //for type Color
 public class VideoSettings extends Screen
 {
 	private int choose = 0; //Choose in menu
+	private int choice = 0;
+	private int exit = 3;
 	private Color chooseMenuColor[] = new Color[5];
 	private String resolutions[] = new String[10];
 	private int cont = 0;
@@ -28,8 +30,6 @@ public class VideoSettings extends Screen
 
 	@Override
 	public void draw(){
-
-		while(!IsKeyPressed(KEY_SPACE) && !WindowShouldClose()){
 
         	BeginDrawing();
         	
@@ -53,7 +53,6 @@ public class VideoSettings extends Screen
 			input();
 
         	EndDrawing();
-        }
 	}
 
 	public void input(){ //-1 up - 1 down
@@ -72,6 +71,18 @@ public class VideoSettings extends Screen
 			}
 		}
 		this.chooseMenuColor[this.choose] = GREEN;
+
+		if(IsKeyPressed(KEY_ENTER)){
+			this.choice = this.choose;
+			this.exit = -1;
+		}else{
+			this.choice = 0;
+			this.exit = 3;
+		}
+	}
+
+	public int getExit(){
+		return exit;
 	}
 
 	public void setResolutions(int r){
@@ -83,11 +94,11 @@ public class VideoSettings extends Screen
 	}
 
 	public String getWidthChoose(){
-		return this.resolutions[this.choose*2];
+		return this.resolutions[this.choice*2];
 	}
 
 	public String getHeightChoose(){
-		return this.resolutions[this.choose*2+1];
+		return this.resolutions[this.choice*2+1];
 	}
 
 }

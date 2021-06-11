@@ -7,6 +7,7 @@ import static com.raylib.Jaylib.*; //for type Color
 public class GameScreen extends Screen
 {
 	private boolean twoPlayers;
+
     //private Texture2D background;
 
     //Shapes
@@ -41,8 +42,8 @@ public class GameScreen extends Screen
         BattleTank tank2 = new BattleTank(getScreenWidth(), getScreenHeight(), twoPlayers, 1); //Player 2
 
         // Main game loop
-        while (!WindowShouldClose())    // Detect window close button or ESC key
-        {
+        //while (!WindowShouldClose())    // Detect window close button or ESC key
+        //{
 
             tank1.input(1);
             if(twoPlayers){
@@ -72,12 +73,8 @@ public class GameScreen extends Screen
             DrawRectangleLines(this.statusBar[0], this.statusBar[1], this.statusBar[2], this.statusBar[3], WHITE);
 
             EndDrawing();
-        }
+        //}
 
-	}
-
-	public void input(){
-		
 	}
 
 }

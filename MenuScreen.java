@@ -7,6 +7,7 @@ import static com.raylib.Jaylib.*; //for type Color
 public class MenuScreen extends Screen
 {
 	private int choose = 0; //Choose in menu
+	private int choice = -1;
 	private Color chooseMenuColor[] = new Color[6];
 
 	public MenuScreen(int width, int height, Color c){
@@ -22,7 +23,6 @@ public class MenuScreen extends Screen
 	@Override
 	public void draw(){
 
-		while(!IsKeyPressed(KEY_ENTER) && !WindowShouldClose()){
             BeginDrawing();
             
             ClearBackground(getBackgroundColor());
@@ -85,7 +85,6 @@ public class MenuScreen extends Screen
             input();
 
             EndDrawing();
-        }
 	}
 
 	public void input(){ //-1 up - 1 down
@@ -104,11 +103,17 @@ public class MenuScreen extends Screen
 			}
 		}
 		this.chooseMenuColor[this.choose] = GREEN;
+
+		if(IsKeyPressed(KEY_ENTER)){
+			this.choice = this.choose;
+		}else{
+			this.choice = -1;
+		}
+
 	}
 
-	public int chooseDraw(){
-		draw();
-		return this.choose;
+	public int getChoice(){
+		return this.choice;
 	}
 
 }
