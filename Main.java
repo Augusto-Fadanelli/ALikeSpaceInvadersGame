@@ -2,6 +2,8 @@
 //import com.raylib.Jaylib.Camera;
 //import com.raylib.Raylib;
 
+import com.raylib.Raylib;
+import com.raylib.Jaylib.*;
 import static com.raylib.Jaylib.*;
 
 import java.io.IOException; //Manipular arquivos
@@ -48,6 +50,9 @@ public class Main
         statusBar[1] = (int)(game.getScreenHeight()/10*8 + game.getScreenHeight()/720 *64);
         statusBar[2] = (int)(5 * game.getScreenWidth() /8);
         statusBar[3] = (int)(game.getScreenHeight() - (game.getScreenHeight()/10*8 + game.getScreenHeight()/720 *64));
+
+        //Textures
+        Texture2D ground = LoadTexture("assets/sprites/ground.png");
 
         /*if(0 == op){
             twoPlayers = false;
@@ -114,11 +119,19 @@ public class Main
                         tank2.draw();
                     }*/
 
+                    //Ground
+                    DrawTextureEx(
+                        ground, 
+                        new Vector2(statusBar[0], 
+                            statusBar[1]), 
+                        0.0f, 
+                        game.getScreenHeight()/360, 
+                        WHITE);
+
                     //Game space
                     DrawRectangleLines(gameSpace[0], gameSpace[1], gameSpace[2], gameSpace[3], WHITE);
-
                     //Status bar
-                    DrawRectangleLines(statusBar[0], statusBar[1], statusBar[2], statusBar[3], WHITE);
+                    //DrawRectangleLines(statusBar[0], statusBar[1], statusBar[2], statusBar[3], WHITE);
 
                     EndDrawing();
 

@@ -17,8 +17,10 @@ public class BattleTank
 
     //Size and Position
     private int tankPosition[] = new int[2]; //Position in width
+    private int positionLimits[] = new int[2];
     private int height;
     private int direction;
+    private float tankScale;
 
     //Frames and Time
     //private float timer = 0.0f;
@@ -60,6 +62,13 @@ public class BattleTank
             this.battleTank[2] = LoadTexture("assets/sprites/wr/red_tank_3.png");
             this.battleTank[3] = LoadTexture("assets/sprites/wr/red_tank_4.png");
         }
+
+        //Battle Tank Scale
+        this.tankScale = (float)this.height/720;
+
+        //Position Limits
+        this.positionLimits[0] = (int)(screenWidth /2 - (5 * screenWidth /8)/2);
+        this.positionLimits[1] = this.positionLimits[0] + (int)(5 * screenWidth /8) - (int)this.tankScale * 64;
     }
 
     public void draw(){
@@ -83,19 +92,33 @@ public class BattleTank
                 new Vector2(this.tankPosition[0], 
                     this.tankPosition[1]), 
                 0.0f, 
-                (float)this.height/720, 
+                this.tankScale, 
                 WHITE);
     }
 
     public void input(int player){ //1 or 2
         if(1 == player){
             if (IsKeyDown(KEY_S)){
-                this.tankPosition[0] += this.speed;
+
                 this.direction = 1;
+
+                if(this.tankPosition[0] > this.positionLimits[1]){
+                    this.tankPosition[0] = this.positionLimits[1];
+                }else{
+                    this.tankPosition[0] += this.speed;
+                }
+
             } 
             if (IsKeyDown(KEY_A)){
-                this.tankPosition[0] -= this.speed;
+                
                 this.direction = -1;
+
+                if(this.tankPosition[0] < this.positionLimits[0]){
+                    this.tankPosition[0] = this.positionLimits[0];
+                }else{
+                    this.tankPosition[0] -= this.speed;
+                }
+
             }
             if (IsKeyDown(KEY_SPACE)){
                 if(0 == bullet1.getShootRate()){
@@ -109,12 +132,22 @@ public class BattleTank
 
         }else{
             if (IsKeyDown(KEY_RIGHT)){
-                    this.tankPosition[0] += this.speed;
                     this.direction = 1;
+
+                    if(this.tankPosition[0] > this.positionLimits[1]){
+                        this.tankPosition[0] = this.positionLimits[1];
+                    }else{
+                        this.tankPosition[0] += this.speed;
+                    }
             }
             if (IsKeyDown(KEY_LEFT)){
-                this.tankPosition[0] -= this.speed;
                 this.direction = -1;
+
+                if(this.tankPosition[0] < this.positionLimits[0]){
+                    this.tankPosition[0] = this.positionLimits[0];
+                }else{
+                    this.tankPosition[0] -= this.speed;
+                }
             }
             if (IsKeyDown(KEY_M)){
                 if(0 == bullet2.getShootRate()){
@@ -137,12 +170,18 @@ public class BattleTank
         this.shoot = s;
     }
 
-    public void setTankPosition(int newPosition){
-        this.tankPosition[0] = newPosition;
+    /*public void setTankPosition(int newPosition){
+        if(this.tankPosition[0] <= this.positionLimits[0]){
+            this.tankPosition[0] = this.positionLimits[0];
+        }else if((this.tankPosition[0] + this.tankScale >= this.positionLimits[1])){
+            this.tankPosition[0] = this.positionLimits[1];
+        }else{
+            this.tankPosition[0] = newPosition;
+        }
     }
     public int getTankPosition(){
         return this.tankPosition[0];
-    }
+    }*/
 
     public int getSpeed(){
         return this.speed;
