@@ -16,9 +16,10 @@ public class BattleTank
     private Texture2D battleTank[] = new Texture2D[4];
 
     //Size and Position
-    private int tankPosition[] = new int[2]; //Position in width
+    private int tankPosition[] = new int[2]; //Position in X and Y
     private int positionLimits[] = new int[2];
     private int height;
+    private int width;
     private int direction;
     private float tankScale;
 
@@ -30,12 +31,15 @@ public class BattleTank
     //Mechanics and Others
     private boolean player2 = false; //Informs if there's two players
     private boolean shoot = false;
-    TankBullet bullet1 = new TankBullet(); //Bullets of tank1
-    TankBullet bullet2 = new TankBullet(); //Bullets of tank2
+    private int numberBullet = 0; //Informs wich bullet
+    TankBullet bullet1 = new TankBullet(1280, 720, (int)(720/10*8), 1.0f); //Bullets of tank1
+    TankBullet bullet2 = new TankBullet(width, height, tankPosition[1], tankScale); //Bullets of tank2
 
     public BattleTank(int screenWidth, int screenHeight, boolean p2, int player){
         this.height = screenHeight;
-        this.speed = (int)screenHeight/180;
+        this.width = screenWidth;
+
+        this.speed = (int)(screenHeight/180);
         if(p2){
             if(0 == player){
                 this.tankPosition[0] = (int)(screenWidth/20*6); //Break screen width in 20 parts
@@ -87,6 +91,8 @@ public class BattleTank
             }
         }
 
+            bullet1.draw();
+
             DrawTextureEx(
                 this.battleTank[frame], 
                 new Vector2(this.tankPosition[0], 
@@ -123,11 +129,17 @@ public class BattleTank
             if (IsKeyDown(KEY_SPACE)){
                 if(0 == bullet1.getShootRate()){
                     this.shoot = true;
-                    bullet1.setShootRate(50);
+                    bullet1.setShootRate(25);
+                    bullet1.shoot(this.tankPosition[0], this.numberBullet);
+                    this.numberBullet++;
+                    if(this.numberBullet > 29){
+                        this.numberBullet = 0;
+                    }
                 }
-            }else{
-                this.shoot = false;
+            }else if(bullet1.getShootRate() <= 0){
+                    this.shoot = false;
             }
+
             bullet1.timeShootRate();
 
         }else{
