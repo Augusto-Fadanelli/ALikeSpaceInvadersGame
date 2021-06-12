@@ -33,7 +33,8 @@ public class Main
         splash.draw();
 
         //Game Variables
-        boolean twoPlayers = true;
+        //-------------------------------------------------------
+        boolean twoPlayers = false;
         Texture2D background;
         int gameSpace[] = new int[4];
         int statusBar[] = new int[4];
@@ -48,48 +49,70 @@ public class Main
         statusBar[2] = (int)(5 * game.getScreenWidth() /8);
         statusBar[3] = (int)(game.getScreenHeight() - (game.getScreenHeight()/10*8 + game.getScreenHeight()/720 *64));
 
-        //this.background = LoadTexture("assets\\textures\\background_stage1.png");
-        BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
-        BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
+        /*if(0 == op){
+            twoPlayers = false;
+        }else{
+            twoPlayers = true;
+        }*/
+                    
 
-        boolean flag = true;
+        background = LoadTexture("assets\\textures\\background_stage1.png");
+
+        InitAudioDevice();              // Initialize audio device
+
+        Music music = LoadMusicStream("assets\\musics\\theme.mp3");
+        PlayMusicStream(music);
+
+        BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
+        //BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
+
+        //-------------------------------------------------------
+
+        boolean musicFlag = true;
+        boolean oneTimeFlag = true;
+
+        boolean exitFlag = true;
         int op = -1;
-        while(flag && !WindowShouldClose()){
+        while(exitFlag && !WindowShouldClose()){
+
+            if(musicFlag){
+                UpdateMusicStream(music);   // Update music buffer with new stream data
+            }else if(oneTimeFlag){
+                oneTimeFlag = false;
+                UnloadMusicStream(music);   // Unload music stream buffers from RAM
+                CloseAudioDevice();         // Close audio device (music streaming is automatically stopped)
+            }
 
             switch(op){
                 case 0:
+                    //Single Player
                 case 1:
+                    //Multiplayer
 
-                    /*if(0 == op){
-                        twoPlayers = false;
-                    }else{
-                        twoPlayers = true;
-                    }*/
-
-                    //teste
-
-                    //Aqui começa o loop
+                    if(musicFlag){
+                        musicFlag = false;
+                    }
 
                     tank1.input(1);
-                    if(twoPlayers){
+                    /*if(twoPlayers){
                         tank2.input(2);
-                    }
+                    }*/
 
                     BeginDrawing();
 
                     ClearBackground(GetColor(0x052c46ff));
-                    /*DrawTextureEx(
-                        this.background, 
+                    DrawTextureEx(
+                        background, 
                         new Vector2(0.0f, 0.0f), 
                         0.0f, 
-                        getScreenWidth()/640, 
-                        WHITE); */
+                        game.getScreenWidth()/640, 
+                        WHITE);
                     
                     //Battle tanks
                     tank1.draw();
-                    if(twoPlayers){
+                    /*if(twoPlayers){
                         tank2.draw();
-                    }
+                    }*/
 
                     //Game space
                     DrawRectangleLines(gameSpace[0], gameSpace[1], gameSpace[2], gameSpace[3], WHITE);
@@ -99,29 +122,47 @@ public class Main
 
                     EndDrawing();
 
-                break;
-                case 2:
+                    //Return to the Menu
+                    /*if(IsKeyPressed(KEY_T)){
+                        op = -1;
+                    }*/
 
                 break;
+                case 2:
+                    //Ranking
+                break;
                 case 3:
+                    //Video Settings Screen
                     video_settings.draw();
                     display.write("DAT/display_resolution.dat", video_settings.getWidthChoose(), video_settings.getHeightChoose());
                     op = video_settings.getExit();
                 break;
                 case 4:
-
+                    //About
                 break;
                 case 5:
-                    flag = false;
+                    //Exit
+                    exitFlag = false;
                 break;
                 default:
                     //Menu (choice: -1)
+                    /*if(!musicFlag){
+                        PlayMusicStream(music);
+                        musicFlag = true;
+                        oneTimeFlag = true;
+                    }*/
+
                     menu.draw();
                     op = menu.getChoice();
             }
         }  
 
         // De-Initialization
+        if(oneTimeFlag){
+            UnloadMusicStream(music);   // Unload music stream buffers from RAM
+            CloseAudioDevice();         // Close audio device (music streaming is automatically stopped)
+        }
+        
         CloseWindow();       // Close window and OpenGL context
     }
 }
