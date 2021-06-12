@@ -32,7 +32,7 @@ public class TankBullet
 		for(int i=0; i<30; i++){
 
 			if(this.bulletPositionY[i] > 0 && this.active[i]){
-				this.bulletPositionY[i] -= 10;
+				this.bulletPositionY[i] -= this.speed;
 
 				DrawTextureEx(
                 this.bullet, 

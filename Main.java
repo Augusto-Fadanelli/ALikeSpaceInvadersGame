@@ -68,6 +68,9 @@ public class Main
         Music music = LoadMusicStream("assets\\musics\\theme.mp3");
         PlayMusicStream(music);
 
+        //Enemy1 enemy2 = new Enemy1(game.getScreenWidth(), game.getScreenHeight(), 1);
+        Enemy1 enemy1 = new Enemy1(game.getScreenWidth(), game.getScreenHeight(), 3);
+
         BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
         //BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
 
@@ -118,6 +121,10 @@ public class Main
                     /*if(twoPlayers){
                         tank2.draw();
                     }*/
+
+                    //Aliens
+                    enemy1.draw();
+                    //enemy2.draw();
 
                     //Ground
                     DrawTextureEx(
