@@ -72,7 +72,7 @@ public class Main
         Enemy2 enemy2 = new Enemy2(game.getScreenWidth(), game.getScreenHeight(), 1);
         Enemy1 enemy1 = new Enemy1(game.getScreenWidth(), game.getScreenHeight(), 3);
 
-        int enemyShootPosY[] = new int[10];
+        boolean isDead[][] = new boolean[10][5];
 
         BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
         //BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
@@ -113,10 +113,14 @@ public class Main
                     enemy2.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
                     enemy3.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
 
-                    enemy1.setShootPosY();
-                    enemy1.getShootPosY(enemyShootPosY);
-                    //enemy2.getShootPosY(enemyShootPosY);
-                    //enemy3.getShootPosY(enemyShootPosY);
+                    //enemy1.setShootPosY();
+                    enemy1.isDead(isDead);
+
+                    enemy2.setCanShoot(isDead);
+                    enemy2.isDead(isDead);
+                    
+                    enemy3.setCanShoot(isDead);
+                    enemy3.isDead(isDead);
 
                     BeginDrawing();
 

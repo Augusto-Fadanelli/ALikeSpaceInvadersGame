@@ -2,6 +2,8 @@ import com.raylib.Raylib;
 import com.raylib.Jaylib.*;
 import static com.raylib.Jaylib.*;
 
+import java.util.Random;
+
 public class Enemy3 extends Aliens{
 
 	private int speed;
@@ -13,7 +15,23 @@ public class Enemy3 extends Aliens{
 	private boolean direction; //true - Right, false - Left
 	private int positionLimits[] = new int[2];
 
+	//-------------------------
+	private int r; //randon number
+
+	//Mechanics and others
+	private boolean shoot = false;
+    private int numberBullet = 0; //Informs wich bullet
+    private int shootPosY[] = new int[10];
+    private boolean canShoot[] = new boolean[10];
+    private boolean canNotShoot[] = new boolean[10]; //false - Can Shoot, true - Can not shoot
+    //-------------------------
+
 	private Texture2D enemy3[] = new Texture2D[8];
+
+	//-------------------------
+	Random random = new Random();
+	EnemyBullet bullet = new EnemyBullet(1280, 720, (int)(720 /8 + 64 * (3 + 1)), 1.0f); //Bullets of tank1
+	//-------------------------
 
 	public Enemy3(int screenWidth, int screenHeight, int posY){
 		this.speed = (int)(screenHeight/360); //speed 1 in 640x360 resolution
@@ -42,6 +60,12 @@ public class Enemy3 extends Aliens{
 	}
 
 	public void draw(){
+
+				randomPositionX();
+				if(!this.canNotShoot[this.r]){
+				shoot();
+				}
+				bullet.draw();
 
 				//for 6 frames per sec in 60 frames game
 				if(this.frameSpeed <= 80 && this.frameSpeed > 70){
@@ -93,6 +117,57 @@ public class Enemy3 extends Aliens{
 				this.alienPositionX[i] += this.speed;
 			}else{
 				this.alienPositionX[i] -= this.speed;
+			}
+		}
+	}
+
+	public void shoot(){
+
+		setShootPosY();
+
+       	if(0 == bullet.getShootRate()){
+            this.shoot = true;
+            bullet.setShootRate(25);
+            bullet.shoot(this.alienPositionX[this.r], this.r, this.numberBullet);
+            this.numberBullet++;
+                
+            if(this.numberBullet > 90){
+                this.numberBullet = 0;
+            }
+        }
+
+        bullet.timeShootRate();
+
+	}
+
+	public void randomPositionX(){
+		this.r = random.nextInt(10);
+	}
+
+	public void setShootPosY(){
+		for(int i=0; i<10; i++){
+			if(this.canShoot[i]){
+				if(!this.dead[i]){
+					this.shootPosY[i] = this.alienPositionY;
+					bullet.setEnemyPositionY(this.alienPositionY, i);
+				}else{
+					this.shootPosY[i] = -1;
+					this.canNotShoot[i] = true;
+				}
+			}
+		}
+	}
+
+	public void isDead(boolean isDead[][]){
+		for(int i=0; i<10; i++){
+			isDead[i][4] = this.dead[i];
+		}
+	}
+
+	public void setCanShoot(boolean isDead[][]){
+		for(int i=0; i<10; i++){
+			if(isDead[i][0] && isDead[i][1] && isDead[i][2] && isDead[i][3]){
+				this.canShoot[i] = true;
 			}
 		}
 	}

@@ -104,18 +104,18 @@ public class Enemy1 extends Aliens{
 
 	public void shoot(){
 
-			setShootPosY();
+		setShootPosY();
 
-        	if(0 == bullet.getShootRate()){
-            	this.shoot = true;
-                bullet.setShootRate(25);
-                bullet.shoot(this.alienPositionX[this.r], this.r, this.numberBullet);
-                this.numberBullet++;
+        if(0 == bullet.getShootRate()){
+            this.shoot = true;
+            bullet.setShootRate(25);
+            bullet.shoot(this.alienPositionX[this.r], this.r, this.numberBullet);
+            this.numberBullet++;
                 
-                if(this.numberBullet > 90){
-                    this.numberBullet = 0;
-                }
+            if(this.numberBullet > 90){
+                this.numberBullet = 0;
             }
+        }
 
         bullet.timeShootRate();
 
@@ -123,9 +123,6 @@ public class Enemy1 extends Aliens{
 
 	public void randomPositionX(){
 		this.r = random.nextInt(10);
-		/*while(this.shootPosY[r] == -1){ //loop infinito
-			r = random.nextInt(10);
-		}*/
 	}
 
 	public void setShootPosY(){
@@ -143,9 +140,10 @@ public class Enemy1 extends Aliens{
 		}
 	}
 
-	public void getShootPosY(int enemyShootPosY[]){
+	public void isDead(boolean isDead[][]){
 		for(int i=0; i<10; i++){
-			enemyShootPosY[i] = this.shootPosY[i];
+			isDead[i][0] = this.dead[i][1];
+			isDead[i][1] = this.dead[i][0];
 		}
 	}
 
