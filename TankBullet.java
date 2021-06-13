@@ -10,9 +10,8 @@ public class TankBullet
 {
 	private int shootRate = 0;
 	private int speed;
-	private boolean active[] = new boolean[30];
-	private int bulletPositionX[] = new int[30];
-	private int bulletPositionY[] = new int[30];
+	private boolean active[] = new boolean[10];
+	private int bulletPositions[][] = new int[10][2];
 	private float bulletScale;
 	private int tankPositionY;
 	private float tankScale;
@@ -29,15 +28,15 @@ public class TankBullet
 
 	public void draw(){
 
-		for(int i=0; i<30; i++){
+		for(int i=0; i<10; i++){
 
-			if(this.bulletPositionY[i] > 0 && this.active[i]){
-				this.bulletPositionY[i] -= this.speed;
+			if(this.bulletPositions[i][1] > 0 && this.active[i]){
+				this.bulletPositions[i][1] -= this.speed;
 
 				DrawTextureEx(
                 this.bullet, 
-                new Vector2(this.bulletPositionX[i], 
-                    this.bulletPositionY[i]), 
+                new Vector2(this.bulletPositions[i][0], 
+                    this.bulletPositions[i][1]), 
                 0.0f, 
                 this.bulletScale, 
                 WHITE);
@@ -51,10 +50,18 @@ public class TankBullet
 
 	public void shoot(int tankPositionX, int wichBullet){
 
-		this.bulletPositionX[wichBullet] = (int)(tankPositionX + this.tankScale *32 / 2);
-	    this.bulletPositionY[wichBullet] = (int)(this.tankPositionY + this.tankScale *32 / 4);
+		this.bulletPositions[wichBullet][0] = (int)(tankPositionX + this.tankScale *32 / 2);
+	    this.bulletPositions[wichBullet][1] = (int)(this.tankPositionY + this.tankScale *32 / 4);
 	    this.active[wichBullet] = true;
 
+	}
+
+	public int[][] getShootPositions(){
+		return this.bulletPositions;
+	}
+
+	public boolean[] getShootActive(){
+		return this.active;
 	}
 
 	public void setShootRate(int s){

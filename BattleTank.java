@@ -132,7 +132,7 @@ public class BattleTank
                     bullet1.setShootRate(25);
                     bullet1.shoot(this.tankPosition[0], this.numberBullet);
                     this.numberBullet++;
-                    if(this.numberBullet > 29){
+                    if(this.numberBullet > 9){
                         this.numberBullet = 0;
                     }
                 }
@@ -198,4 +198,14 @@ public class BattleTank
     public int getSpeed(){
         return this.speed;
     }
+
+    //Getters TankBullet
+    public int[][] getBulletPositions(){
+        return bullet1.getShootPositions();
+    }
+
+    public boolean[] getBulletActive(){
+        return bullet1.getShootActive();
+    }
+
 }

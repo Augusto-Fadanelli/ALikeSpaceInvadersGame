@@ -83,4 +83,32 @@ public class Enemy1 extends Aliens{
 		}
 	}
 
+	public void checkCollision(int bulletPositions[][], boolean bulletActive[]){
+
+		for(int i=0; i<10; i++){ //10 bullets
+			if(bulletActive[i]){
+				//x axis
+				for(int x=0; x<10; x++){
+					if(bulletPositions[i][0] >= (this.alienPositionX[x])
+						&& bulletPositions[i][0] < this.alienPositionX[x] + 40 * this.alienScale){
+					
+						for(int j=0; j<2; j++){
+							//y axis		
+							if(bulletPositions[i][1] <= (this.alienPositionY[j] + 64 * this.alienScale)
+								&& bulletPositions[i][1] >= this.alienPositionY[j]){
+										if(!this.dead[x][j]){
+											bulletActive[i] = false;
+										}
+										this.dead[x][j] = true;
+							}
+							
+						}
+					}
+				}
+			}
+
+		}
+
+	}
+
 }
