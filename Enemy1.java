@@ -2,10 +2,12 @@ import com.raylib.Raylib;
 import com.raylib.Jaylib.*;
 import static com.raylib.Jaylib.*;
 
+import java.util.Random;
+
 public class Enemy1 extends Aliens{
 
 	private int speed;
-	private int frameSpeed = 30; //for 6 frames per sec in 60 frames game
+	private int frameSpeed = 30;
 	private boolean dead[][] = new boolean[10][2];
 	private int alienPositionX[] = new int[10];
 	private int alienPositionY[] = new int[2];
@@ -13,8 +15,18 @@ public class Enemy1 extends Aliens{
 	private boolean direction; //true - Right, false - Left
 	private int positionLimits[] = new int[2];
 	//private int linePosition[] = new int[2];
+	private int r; //randon number
+
+	//Mechanics and others
+	private boolean shoot = false;
+    private int numberBullet = 0; //Informs wich bullet
+    private int shootPosY[] = new int[10];
+    private boolean canNotShoot[] = new boolean[10]; //false - Can Shoot, true - Can not shoot
 
 	private Texture2D enemy1[] = new Texture2D[3];
+
+	Random random = new Random();
+	EnemyBullet bullet = new EnemyBullet(1280, 720, (int)(720 /8 + 64 * (3 + 1)), 1.0f); //Bullets of tank1
 
 	public Enemy1(int screenWidth, int screenHeight, int posY){
 		this.speed = (int)(screenHeight/360); //speed 1 in 640x360 resolution
@@ -40,6 +52,13 @@ public class Enemy1 extends Aliens{
 
 	public void draw(){
 
+				randomPositionX();
+				if(!this.canNotShoot[this.r]){
+				shoot();
+				}
+				bullet.draw();
+
+				//for 6 frames per sec in 60 frames game
 				if(this.frameSpeed <= 30 && this.frameSpeed > 20){
 					drawEnemy(0);
 				}else if(this.frameSpeed <= 20 && this.frameSpeed > 10){
@@ -83,6 +102,53 @@ public class Enemy1 extends Aliens{
 		}
 	}
 
+	public void shoot(){
+
+			setShootPosY();
+
+        	if(0 == bullet.getShootRate()){
+            	this.shoot = true;
+                bullet.setShootRate(25);
+                bullet.shoot(this.alienPositionX[this.r], this.r, this.numberBullet);
+                this.numberBullet++;
+                
+                if(this.numberBullet > 90){
+                    this.numberBullet = 0;
+                }
+            }
+
+        bullet.timeShootRate();
+
+	}
+
+	public void randomPositionX(){
+		this.r = random.nextInt(10);
+		/*while(this.shootPosY[r] == -1){ //loop infinito
+			r = random.nextInt(10);
+		}*/
+	}
+
+	public void setShootPosY(){
+		for(int i=0; i<10; i++){
+			if(!this.dead[i][1]){
+				this.shootPosY[i] = this.alienPositionY[1];
+				bullet.setEnemyPositionY(this.alienPositionY[1], i);
+			}else if(!this.dead[i][0]){
+				bullet.setEnemyPositionY(this.alienPositionY[0], i);
+				this.shootPosY[i] = this.alienPositionY[0];
+			}else{
+				this.shootPosY[i] = -1;
+				this.canNotShoot[i] = true;
+			}
+		}
+	}
+
+	public void getShootPosY(int enemyShootPosY[]){
+		for(int i=0; i<10; i++){
+			enemyShootPosY[i] = this.shootPosY[i];
+		}
+	}
+
 	public void checkCollision(int bulletPositions[][], boolean bulletActive[]){
 
 		for(int i=0; i<10; i++){ //10 bullets
@@ -94,7 +160,7 @@ public class Enemy1 extends Aliens{
 					
 						for(int j=0; j<2; j++){
 							//y axis		
-							if(bulletPositions[i][1] <= (this.alienPositionY[j] + 64 * this.alienScale)
+							if(bulletPositions[i][1] <= (this.alienPositionY[j] + 40 * this.alienScale)
 								&& bulletPositions[i][1] >= this.alienPositionY[j]){
 										if(!this.dead[x][j]){
 											bulletActive[i] = false;

@@ -68,9 +68,11 @@ public class Main
         Music music = LoadMusicStream("assets\\musics\\theme.mp3");
         PlayMusicStream(music);
 
-        //Enemy3 enemy3 = new Enemy3(game.getScreenWidth(), game.getScreenHeight(), 0);
+        Enemy3 enemy3 = new Enemy3(game.getScreenWidth(), game.getScreenHeight(), 0);
         Enemy2 enemy2 = new Enemy2(game.getScreenWidth(), game.getScreenHeight(), 1);
         Enemy1 enemy1 = new Enemy1(game.getScreenWidth(), game.getScreenHeight(), 3);
+
+        int enemyShootPosY[] = new int[10];
 
         BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
         //BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
@@ -109,6 +111,12 @@ public class Main
 
                     enemy1.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
                     enemy2.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
+                    enemy3.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
+
+                    enemy1.setShootPosY();
+                    enemy1.getShootPosY(enemyShootPosY);
+                    //enemy2.getShootPosY(enemyShootPosY);
+                    //enemy3.getShootPosY(enemyShootPosY);
 
                     BeginDrawing();
 
@@ -129,6 +137,7 @@ public class Main
                     //Aliens
                     enemy1.draw();
                     enemy2.draw();
+                    enemy3.draw();
 
                     //Ground
                     DrawTextureEx(
