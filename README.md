@@ -3,21 +3,21 @@ A simple game like Space Invaders classic, developed with [Raylib](https://githu
 
 ## The game is still in development
 
-[X] - Splash screen
-[X] - Menu Screen
-[X] - Battle Tanks
-[X] - Tank bullets
-[] - Tank collision
-[X] - Aliens
-[] - Aliens bullets
-[X] - Aliens collision
-[X] - Multiplayer (incomplete)
-[X] - Screen resolution system (incomplete)
-[] - Lifes
-[] - Score system
-[] - Ranking
-[] - Screen About
-[] - Sounds
+- [X] Splash screen
+- [X] Menu Screen
+- [X] Battle Tanks
+- [X] Tank bullets
+- [ ] Tank collision
+- [X] Aliens
+- [ ] Aliens bullets
+- [X] Aliens collision
+- [X] Multiplayer (incomplete)
+- [X] Screen resolution system (incomplete)
+- [ ] Lifes
+- [ ] Score system
+- [ ] Ranking
+- [ ] Screen About
+- [ ] Sounds
 
 ## How to build
 
@@ -48,3 +48,5 @@ java -cp jaylib.jar;. Main
 ![game1](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/game1.png)
 
 ![game2](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/game2.png)
+
+**Pixel art by Rain**
