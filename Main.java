@@ -114,6 +114,7 @@ public class Main
                     enemy3.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
 
                     //enemy1.setShootPosY();
+                    enemy1.setCanShoot(isDead);
                     enemy1.isDead(isDead);
 
                     enemy2.setCanShoot(isDead);
