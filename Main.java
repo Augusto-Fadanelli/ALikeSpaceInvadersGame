@@ -1,7 +1,3 @@
-//import com.raylib.Jaylib.Vector3;
-//import com.raylib.Jaylib.Camera;
-//import com.raylib.Raylib;
-
 import com.raylib.Raylib;
 import com.raylib.Jaylib.*;
 import static com.raylib.Jaylib.*;

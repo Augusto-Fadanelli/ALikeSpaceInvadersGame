@@ -39,11 +39,12 @@ public class Enemy2 extends Aliens{
 	@Override
 	public void draw(){
 
-				randomPositionX();
+				//Alien Bullets
+				/*randomPositionX();
 				if(!this.canNotShoot[this.r]){
 				aShoot();
 				}
-				drawBullets();
+				drawBullets();*/
 
 				//for 6 frames per sec in 60 frames game
 				if(this.frameSpeed <= 50 && this.frameSpeed > 40){
