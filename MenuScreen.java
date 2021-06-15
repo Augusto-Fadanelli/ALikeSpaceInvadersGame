@@ -48,7 +48,7 @@ public class MenuScreen extends Screen
 				positionCentralize(getScreenWidth(), 3.6), 
 				(int)(getScreenHeight()/8*2 + size(80)), 
 				size(30), 
-				GRAY); //chooseMenuColor[1]
+				chooseMenuColor[1]);
 
 			//choose = 2
 			DrawText(
@@ -92,15 +92,15 @@ public class MenuScreen extends Screen
 		if(IsKeyPressed(KEY_UP)){ //up
 			if(this.choose == 0){
 				this.choose = 5;
-			}else if(this.choose == 3){ //Block Two Players and Rank options
-				this.choose = 0;
+			}else if(this.choose == 3){ //Block Rank option
+				this.choose = 1;
 			}else{
 				this.choose--;
 			}
 		}else if(IsKeyPressed(KEY_DOWN)){ //down
 			if(this.choose == 5){
 				this.choose = 0;
-			}else if(this.choose == 0){ //Block Two Players and Rank options
+			}else if(this.choose == 1){ //Block Rank option
 				this.choose = 3;
 			}else{
 				this.choose++;

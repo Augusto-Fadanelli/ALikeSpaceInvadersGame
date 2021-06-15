@@ -6,7 +6,7 @@ import static com.raylib.Jaylib.*; //for InitWindow(); and Color type
 
 public abstract class Screen
 {
-	private int screen[] = new int[2];
+	private int screen[] = new int[2]; //[0] - Screen Width; [1] - Screen Height
 	private Color backgroundColor;	
 
 	public Screen(int width, int height, Color c){

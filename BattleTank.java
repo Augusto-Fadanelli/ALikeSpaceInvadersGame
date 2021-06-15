@@ -2,29 +2,21 @@
 * Battle tank features
 */
 
-//import com.raylib.Jaylib.Vector3;
-//import com.raylib.Jaylib.Camera;
-
 import com.raylib.Raylib;
 import com.raylib.Jaylib.*;
 import static com.raylib.Jaylib.*; //for Color type
 
-public class BattleTank
+public class BattleTank extends Player
 {
     
     //Textures
     private Texture2D battleTank[] = new Texture2D[4];
 
     //Size and Position
-    private int tankPosition[] = new int[2]; //Position in X and Y
     private int positionLimits[] = new int[2];
-    private int height;
-    private int width;
     private int direction;
-    private float tankScale;
 
     //Frames and Time
-    //private float timer = 0.0f;
     private int speed;
     private int frame = 0;
 
@@ -32,13 +24,12 @@ public class BattleTank
     private boolean player2 = false; //Informs if there's two players
     private boolean shoot = false;
     private int numberBullet = 0; //Informs wich bullet
-    TankBullet bullet1 = new TankBullet(1280, 720, (int)(720/10*8), 1.0f); //Bullets of tank1
-    TankBullet bullet2 = new TankBullet(width, height, tankPosition[1], tankScale); //Bullets of tank2
 
     public BattleTank(int screenWidth, int screenHeight, boolean p2, int player){
-        this.height = screenHeight;
-        this.width = screenWidth;
 
+        super(screenWidth, screenHeight, (int)(screenHeight/10*8), (float)screenHeight/720);
+
+        //Set positions of player 1 and player 2
         this.speed = (int)(screenHeight/180);
         if(p2){
             if(0 == player){
@@ -67,14 +58,12 @@ public class BattleTank
             this.battleTank[3] = LoadTexture("assets/sprites/wr/red_tank_4.png");
         }
 
-        //Battle Tank Scale
-        this.tankScale = (float)this.height/720;
-
         //Position Limits
         this.positionLimits[0] = (int)(screenWidth /2 - (5 * screenWidth /8)/2);
         this.positionLimits[1] = this.positionLimits[0] + (int)(5 * screenWidth /8) - (int)this.tankScale * 64;
     }
 
+    @Override
     public void draw(){
 
         if(this.direction == -1){ //Left
@@ -91,7 +80,7 @@ public class BattleTank
             }
         }
 
-            bullet1.draw();
+            drawBullets();
 
             DrawTextureEx(
                 this.battleTank[frame], 
@@ -102,6 +91,7 @@ public class BattleTank
                 WHITE);
     }
 
+    @Override
     public void input(int player){ //1 or 2
         if(1 == player){
             if (IsKeyDown(KEY_S)){
@@ -127,20 +117,20 @@ public class BattleTank
 
             }
             if (IsKeyDown(KEY_SPACE)){
-                if(0 == bullet1.getShootRate()){
+                if(0 == getShootRate()){
                     this.shoot = true;
-                    bullet1.setShootRate(25);
-                    bullet1.shoot(this.tankPosition[0], this.numberBullet);
+                    setShootRate(25);
+                    shoot(this.tankPosition[0], this.numberBullet);
                     this.numberBullet++;
                     if(this.numberBullet > 9){
                         this.numberBullet = 0;
                     }
                 }
-            }else if(bullet1.getShootRate() <= 0){
+            }else if(getShootRate() <= 0){
                     this.shoot = false;
             }
 
-            bullet1.timeShootRate();
+            timeShootRate();
 
         }else{
             if (IsKeyDown(KEY_RIGHT)){
@@ -162,14 +152,19 @@ public class BattleTank
                 }
             }
             if (IsKeyDown(KEY_M)){
-                if(0 == bullet2.getShootRate()){
+                if(0 == getShootRate()){
                     this.shoot = true;
-                    bullet2.setShootRate(50);
+                    setShootRate(25);
+                    shoot(this.tankPosition[0], this.numberBullet);
+                    this.numberBullet++;
+                    if(this.numberBullet > 9){
+                        this.numberBullet = 0;
+                    }
                 }
             }else{
                 this.shoot = false;
             }
-            bullet2.timeShootRate();
+            timeShootRate();
         }
 
     }
@@ -201,11 +196,11 @@ public class BattleTank
 
     //Getters TankBullet
     public int[][] getBulletPositions(){
-        return bullet1.getShootPositions();
+        return getShootPositions();
     }
 
     public boolean[] getBulletActive(){
-        return bullet1.getShootActive();
+        return getShootActive();
     }
 
 }

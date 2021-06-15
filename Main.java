@@ -32,7 +32,7 @@ public class Main
 
         //Game Variables
         //-------------------------------------------------------
-        boolean twoPlayers = false;
+        boolean twoPlayers = true;
         Texture2D background;
         int gameSpace[] = new int[4];
         int statusBar[] = new int[4];
@@ -71,7 +71,7 @@ public class Main
         boolean isDead[][] = new boolean[10][5];
 
         BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
-        //BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
+        BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
 
         //-------------------------------------------------------
 
@@ -93,6 +93,8 @@ public class Main
             switch(op){
                 case 0:
                     //Single Player
+                    twoPlayers = false;
+
                 case 1:
                     //Multiplayer
 
@@ -101,13 +103,22 @@ public class Main
                     }
 
                     tank1.input(1);
-                    /*if(twoPlayers){
+                    if(twoPlayers){
                         tank2.input(2);
-                    }*/
+                    }
 
+                    //Player 1 bullets colisions
                     enemy1.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
                     enemy2.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
                     enemy3.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
+
+                    //Player 2 bullets colisions
+                    if(twoPlayers){
+                        enemy1.checkCollision(tank2.getBulletPositions(), tank2.getBulletActive());
+                        enemy2.checkCollision(tank2.getBulletPositions(), tank2.getBulletActive());
+                        enemy3.checkCollision(tank2.getBulletPositions(), tank2.getBulletActive());
+                    }
+
 
                     //enemy1.setShootPosY();
                     enemy1.setCanShoot(isDead);
@@ -131,9 +142,9 @@ public class Main
                     
                     //Battle tanks
                     tank1.draw();
-                    /*if(twoPlayers){
+                    if(twoPlayers){
                         tank2.draw();
-                    }*/
+                    }
 
                     //Aliens
                     enemy1.draw();
