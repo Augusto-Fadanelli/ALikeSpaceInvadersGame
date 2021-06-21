@@ -13,21 +13,17 @@ public abstract class Aliens implements Bullets{
 
 	//Frames and Time
 	protected int speed; 
-	protected int frameSpeed = 80;
+	protected int frameSpeed;
 
 	//Size and Position
 	private int screen[] = new int[2]; //[0] - Screen Width; [1] - Screen Height
-	protected int shootPosY[] = new int[10];
 	protected int alienPositionX[] = new int[10];
 	protected int alienPositionY[] = new int[2];
 	protected int positionLimits[] = new int[2];
 	protected float alienScale;
 
 	//Mechanics and others
-	protected boolean shoot = false;
     protected int numberBullet = 0; //Informs wich bullet
-    protected boolean canShoot[] = new boolean[10];
-    protected boolean canNotShoot[] = new boolean[10]; //false - Can Shoot, true - Can not shoot
 	protected boolean dead[][] = new boolean[10][2];
 	protected boolean direction; //true - Right, false - Left
 	Random random = new Random();
@@ -43,8 +39,6 @@ public abstract class Aliens implements Bullets{
 
 	//Size and Position
 	protected int bulletPositions[][] = new int[100][2];
-	private int enemyPositionY[] = new int[10];
-	protected float enemyScale;
 	private float bulletScale;
 
 	//Mechanics and Others
@@ -54,16 +48,12 @@ public abstract class Aliens implements Bullets{
 
 
 
-    public Aliens(int screenWidth, int screenHeight, int ePY){
+    public Aliens(int screenWidth, int screenHeight){
 
     	screen[0] = screenWidth;
     	screen[1] = screenHeight;
 
 		this.speed = (int)(screenHeight/180); //speed 2 in 640x360 resolution
-
-		for(int i=0; i<10; i++){
-			this.enemyPositionY[i] = ePY;
-		}
 
 		this.bulletScale = (float)(screenHeight/1440.0f);
 		this.bullet = LoadTexture("assets/sprites/enemy_bullet.png");
@@ -134,7 +124,6 @@ public abstract class Aliens implements Bullets{
     	int wichBullet = this.numberBullet;
 
     	if(0 == this.shootRate){
-            this.shoot = true;
             this.shootRate = 25;
 
 	    	int positionY = 0;
@@ -142,8 +131,8 @@ public abstract class Aliens implements Bullets{
 	    		positionY = 1;
 	    	}
 
-			this.bulletPositions[wichBullet][0] = (int)(enemyPositionX + this.enemyScale *32 / 2);
-		    this.bulletPositions[wichBullet][1] = (int)(this.alienPositionY[positionY] + this.enemyScale *32 / 4);
+			this.bulletPositions[wichBullet][0] = (int)(enemyPositionX + this.alienScale *32 / 2);
+		    this.bulletPositions[wichBullet][1] = (int)(this.alienPositionY[positionY] + this.alienScale *32 / 4);
 		    this.active[wichBullet] = true;
 
 		    	this.numberBullet++;
@@ -155,10 +144,6 @@ public abstract class Aliens implements Bullets{
 
         timeShootRate();
 
-	}
-
-	public void setEnemyPositionY(int ePY, int wichEnemy){
-		this.enemyPositionY[wichEnemy] = ePY;
 	}
 
 	@Override

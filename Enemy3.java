@@ -6,15 +6,12 @@ public class Enemy3 extends Aliens{
 
 	public Enemy3(int screenWidth, int screenHeight, int posY){
 
-		super(screenWidth, screenHeight, (int)(720 /8 + 64 * (3 + 1)));
+		super(screenWidth, screenHeight);
 
-		this.frameSpeed = 30;
+		this.frameSpeed = 80;
 
 		this.speed = (int)(screenHeight/360); //speed 1 in 640x360 resolution
 		this.alienScale = (float)(screenHeight/720.0f); //Alien Scale 0.5 in 640x360 resolution
-
-		//this.enemyScale = this.alienScale;
-		this.enemyScale = 1.0f;
 
 		this.alienPositionY[0] = (int)(screenHeight /8 + 64 * this.alienScale * posY);
 
@@ -120,11 +117,10 @@ public class Enemy3 extends Aliens{
     	int wichBullet = this.numberBullet;
 
     	if(0 == this.shootRate){
-            this.shoot = true;
             this.shootRate = 25;
 
-	    	this.bulletPositions[wichBullet][0] = (int)(enemyPositionX + this.enemyScale *32 / 2);
-	    	this.bulletPositions[wichBullet][1] = (int)(this.alienPositionY[0] + this.enemyScale *32 / 4);
+	    	this.bulletPositions[wichBullet][0] = (int)(enemyPositionX + this.alienScale *32 / 2);
+	    	this.bulletPositions[wichBullet][1] = (int)(this.alienPositionY[0] + this.alienScale *32 / 4);
 	    	this.active[wichBullet] = true;
 
 	    	this.numberBullet++;

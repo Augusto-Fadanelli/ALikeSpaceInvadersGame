@@ -6,15 +6,12 @@ public class Enemy1 extends Aliens{
 
 	public Enemy1(int screenWidth, int screenHeight, int posY){
 
-		super(screenWidth, screenHeight, (int)(720 /8 + 64 * (3 + 1)));
+		super(screenWidth, screenHeight);
 
 		this.frameSpeed = 30;
 
 		this.speed = (int)(screenHeight/360); //speed 1 in 640x360 resolution
 		this.alienScale = (float)(screenHeight/720.0f); //Alien Scale 0.5 in 640x360 resolution
-
-		//this.enemyScale = this.alienScale;
-		this.enemyScale = 1.0f;
 
 		this.alienPositionY[0] = (int)(screenHeight /8 + 64 * this.alienScale * posY);
 		this.alienPositionY[1] = (int)(screenHeight /8 + 64 * this.alienScale * (posY + 1));
@@ -87,8 +84,8 @@ public class Enemy1 extends Aliens{
 					if(bulletPositions[i][0] >= (this.alienPositionX[x])
 						&& bulletPositions[i][0] < this.alienPositionX[x] + 40 * this.alienScale){
 					
-						for(int j=0; j<2; j++){
-							//y axis		
+						//y axis
+						for(int j=0; j<2; j++){		
 							if(bulletPositions[i][1] <= (this.alienPositionY[j] + 40 * this.alienScale)
 								&& bulletPositions[i][1] >= this.alienPositionY[j]){
 										if(!this.dead[x][j]){
