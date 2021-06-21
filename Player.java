@@ -18,11 +18,12 @@ public abstract class Player implements Bullets{
 	protected int screen[] = new int[2]; //[0] - Screen Width; [1] - Screen Height
 	protected int tankPosition[] = new int[2]; //Position in X and Y
 	protected float tankScale;
+	protected int life;
 
 	//Abstract methods
 	public abstract void draw();
 	public abstract void input(int player);
-	//public abstract void checkCollision(int bulletPositions[][], boolean bulletActive[]);
+	public abstract void checkCollision(int enemyBulletPositions[][], boolean enemyBulletActive[]);
 
 	public Player(int screenWidth, int screenHeight, int tPY, float tS){
 
@@ -90,5 +91,9 @@ public abstract class Player implements Bullets{
 		}
 	}
 	//---------------------------------------------------------
+
+	public int getLife(){
+		return this.life;
+	}
 
 }

@@ -108,15 +108,25 @@ public class Main
                     }
 
                     //Player 1 bullets colisions
-                    enemy1.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
-                    enemy2.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
-                    enemy3.checkCollision(tank1.getBulletPositions(), tank1.getBulletActive());
+                    enemy1.checkCollision(tank1.getShootPositions(), tank1.getShootActive());
+                    enemy2.checkCollision(tank1.getShootPositions(), tank1.getShootActive());
+                    enemy3.checkCollision(tank1.getShootPositions(), tank1.getShootActive());
 
-                    //Player 2 bullets colisions
+                    //Aliens bullets colisions with player 1
+                    tank1.checkCollision(enemy1.getShootPositions(), enemy1.getShootActive());
+                    tank1.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
+                    tank1.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
+
                     if(twoPlayers){
-                        enemy1.checkCollision(tank2.getBulletPositions(), tank2.getBulletActive());
-                        enemy2.checkCollision(tank2.getBulletPositions(), tank2.getBulletActive());
-                        enemy3.checkCollision(tank2.getBulletPositions(), tank2.getBulletActive());
+                        //Player 2 bullets colisions
+                        enemy1.checkCollision(tank2.getShootPositions(), tank2.getShootActive());
+                        enemy2.checkCollision(tank2.getShootPositions(), tank2.getShootActive());
+                        enemy3.checkCollision(tank2.getShootPositions(), tank2.getShootActive());
+
+                        //Aliens bullets colisions with player 1
+                        tank2.checkCollision(enemy1.getShootPositions(), enemy1.getShootActive());
+                        tank2.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
+                        tank2.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
                     }
 
                     enemy1.setCanShoot(whoCanShoot);
@@ -155,8 +165,23 @@ public class Main
 
                     //Game space
                     DrawRectangleLines(gameSpace[0], gameSpace[1], gameSpace[2], gameSpace[3], WHITE);
+
                     //Status bar
                     //DrawRectangleLines(statusBar[0], statusBar[1], statusBar[2], statusBar[3], WHITE);
+                    DrawText(
+                    "Tank 1 Lifes: " + tank1.getLife(), 
+                    statusBar[0] + 5, 
+                    statusBar[1] + 5, 
+                    20, 
+                    RAYWHITE);
+                    if(twoPlayers){
+                        DrawText(
+                        "Tank 2 Lifes: " + tank2.getLife(), 
+                        statusBar[0] + 600, 
+                        statusBar[1] + 5, 
+                        20, 
+                        RAYWHITE);
+                    }
 
                     EndDrawing();
 

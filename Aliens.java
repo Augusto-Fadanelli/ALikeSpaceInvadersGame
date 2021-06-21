@@ -6,10 +6,9 @@ import java.util.Random;
 
 public abstract class Aliens implements Bullets{
 
-	//Aliens
-	//---------------------------------------------------------
 	//Textures
 	protected Texture2D alienSprites[] = new Texture2D[8];
+	private Texture2D bullet;
 
 	//Frames and Time
 	protected int speed; 
@@ -20,33 +19,18 @@ public abstract class Aliens implements Bullets{
 	protected int alienPositionX[] = new int[10];
 	protected int alienPositionY[] = new int[2];
 	protected int positionLimits[] = new int[2];
+	protected int bulletPositions[][] = new int[100][2];
 	protected float alienScale;
+	private float bulletScale;
 
 	//Mechanics and others
-    protected int numberBullet = 0; //Informs wich bullet
-	protected boolean dead[][] = new boolean[10][2];
+   	protected boolean dead[][] = new boolean[10][2];
+   	protected boolean active[] = new boolean[100];
+	protected int numberBullet = 0; //Informs wich bullet
+	protected int shootRate = 0;
 	protected boolean direction; //true - Right, false - Left
 	Random random = new Random();
 	protected int r; //randon number
-	//---------------------------------------------------------
-
-
-
-	//Aliens bullets features
-	//---------------------------------------------------------
-	//Textures
-	private Texture2D bullet;
-
-	//Size and Position
-	protected int bulletPositions[][] = new int[100][2];
-	private float bulletScale;
-
-	//Mechanics and Others
-	protected int shootRate = 0;
-	protected boolean active[] = new boolean[100];
-    //---------------------------------------------------------
-
-
 
     public Aliens(int screenWidth, int screenHeight){
 
@@ -85,10 +69,6 @@ public abstract class Aliens implements Bullets{
 			}
 		}
 	}
-
-
-	//Aliens bullets features
-	//---------------------------------------------------------
 
 	public void randomPositionX(){
 		this.r = random.nextInt(10);
@@ -172,6 +152,6 @@ public abstract class Aliens implements Bullets{
 			this.shootRate--;
 		}
 	}
-    //---------------------------------------------------------
+
 }
 

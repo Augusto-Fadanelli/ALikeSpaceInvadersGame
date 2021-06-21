@@ -29,6 +29,8 @@ public class BattleTank extends Player
 
         super(screenWidth, screenHeight, (int)(screenHeight/10*8), (float)screenHeight/720);
 
+        this.life = 5;
+
         //Set positions of player 1 and player 2
         this.speed = (int)(screenHeight/180);
         if(p2){
@@ -82,13 +84,15 @@ public class BattleTank extends Player
 
             drawBullets();
 
-            DrawTextureEx(
+            if(this.life >= 0){
+                DrawTextureEx(
                 this.battleTank[frame], 
                 new Vector2(this.tankPosition[0], 
                     this.tankPosition[1]), 
                 0.0f, 
                 this.tankScale, 
                 WHITE);
+            }
     }
 
     @Override
@@ -120,7 +124,9 @@ public class BattleTank extends Player
                 if(0 == getShootRate()){
                     this.shoot = true;
                     setShootRate(25);
-                    shoot(this.tankPosition[0], this.numberBullet);
+                    if(this.life >= 0){
+                        shoot(this.tankPosition[0], this.numberBullet);
+                    }
                     this.numberBullet++;
                     if(this.numberBullet > 9){
                         this.numberBullet = 0;
@@ -155,7 +161,9 @@ public class BattleTank extends Player
                 if(0 == getShootRate()){
                     this.shoot = true;
                     setShootRate(25);
-                    shoot(this.tankPosition[0], this.numberBullet);
+                    if(this.life >= 0){
+                        shoot(this.tankPosition[0], this.numberBullet);
+                    }
                     this.numberBullet++;
                     if(this.numberBullet > 9){
                         this.numberBullet = 0;
@@ -177,30 +185,43 @@ public class BattleTank extends Player
         this.shoot = s;
     }
 
-    /*public void setTankPosition(int newPosition){
-        if(this.tankPosition[0] <= this.positionLimits[0]){
-            this.tankPosition[0] = this.positionLimits[0];
-        }else if((this.tankPosition[0] + this.tankScale >= this.positionLimits[1])){
-            this.tankPosition[0] = this.positionLimits[1];
-        }else{
-            this.tankPosition[0] = newPosition;
-        }
-    }
-    public int getTankPosition(){
-        return this.tankPosition[0];
-    }*/
-
     public int getSpeed(){
         return this.speed;
     }
 
     //Getters TankBullet
-    public int[][] getBulletPositions(){
+    /*public int[][] getBulletPositions(){
         return getShootPositions();
     }
 
     public boolean[] getBulletActive(){
         return getShootActive();
+    }*/
+
+    @Override
+    public void checkCollision(int enemyBulletPositions[][], boolean enemyBulletActive[]){
+
+        for(int i=0; i<100; i++){ //100 bullets
+            if(enemyBulletActive[i]){
+                //x axis
+                if(enemyBulletPositions[i][0] >= (this.tankPosition[0])
+                    && enemyBulletPositions[i][0] < this.tankPosition[0] + 40 * this.tankScale){
+    
+                    //y axis        
+                    if(enemyBulletPositions[i][1] <= (this.tankPosition[1] + 64 * this.tankScale)
+                        && enemyBulletPositions[i][1] >= this.tankPosition[1]){
+                            
+                        if(this.life >= 0){
+                            enemyBulletActive[i] = false;
+                            this.life--;
+                        }
+
+                    }
+                }
+            }
+
+        }
+
     }
 
 }
