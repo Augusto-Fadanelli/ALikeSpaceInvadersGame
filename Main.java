@@ -68,7 +68,7 @@ public class Main
         Enemy2 enemy2 = new Enemy2(game.getScreenWidth(), game.getScreenHeight(), 1);
         Enemy1 enemy1 = new Enemy1(game.getScreenWidth(), game.getScreenHeight(), 3);
 
-        boolean isDead[][] = new boolean[10][5];
+        int whoCanShoot[] = new int[10]; //0 - Enemy1; 1 - Enemy2; 2 - Enemy3; 3 - No one
 
         BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
         BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
@@ -119,16 +119,9 @@ public class Main
                         enemy3.checkCollision(tank2.getBulletPositions(), tank2.getBulletActive());
                     }
 
-
-                    //enemy1.setShootPosY();
-                    enemy1.setCanShoot(isDead);
-                    enemy1.isDead(isDead);
-
-                    enemy2.setCanShoot(isDead);
-                    enemy2.isDead(isDead);
-                    
-                    enemy3.setCanShoot(isDead);
-                    enemy3.isDead(isDead);
+                    enemy1.setCanShoot(whoCanShoot);
+                    enemy2.setCanShoot(whoCanShoot);                    
+                    enemy3.setCanShoot(whoCanShoot);
 
                     BeginDrawing();
 
@@ -147,9 +140,9 @@ public class Main
                     }
 
                     //Aliens
-                    enemy1.draw();
-                    enemy2.draw();
-                    enemy3.draw();
+                    enemy1.draw(whoCanShoot);
+                    enemy2.draw(whoCanShoot);
+                    enemy3.draw(whoCanShoot);
 
                     //Ground
                     DrawTextureEx(

@@ -16,6 +16,7 @@ public abstract class Aliens implements Bullets{
 	protected int frameSpeed = 80;
 
 	//Size and Position
+	private int screen[] = new int[2]; //[0] - Screen Width; [1] - Screen Height
 	protected int shootPosY[] = new int[10];
 	protected int alienPositionX[] = new int[10];
 	protected int alienPositionY[] = new int[2];
@@ -41,19 +42,23 @@ public abstract class Aliens implements Bullets{
 	private Texture2D bullet;
 
 	//Size and Position
-	private int bulletPositions[][] = new int[100][2];
+	protected int bulletPositions[][] = new int[100][2];
 	private int enemyPositionY[] = new int[10];
 	protected float enemyScale;
 	private float bulletScale;
 
 	//Mechanics and Others
-	private int shootRate = 0;
-	private boolean active[] = new boolean[100];
+	protected int shootRate = 0;
+	protected boolean active[] = new boolean[100];
     //---------------------------------------------------------
 
 
 
     public Aliens(int screenWidth, int screenHeight, int ePY){
+
+    	screen[0] = screenWidth;
+    	screen[1] = screenHeight;
+
 		this.speed = (int)(screenHeight/180); //speed 2 in 640x360 resolution
 
 		for(int i=0; i<10; i++){
@@ -65,10 +70,8 @@ public abstract class Aliens implements Bullets{
 	}
 
 	//Abstract methods
-	public abstract void draw();
-	public abstract void setShootPosY();
-	public abstract void isDead(boolean isDead[][]);
-	public abstract void setCanShoot(boolean isDead[][]);
+	public abstract void draw(int whoCanShoot[]);
+	public abstract void setCanShoot(int whoCanShoot[]);
 	public abstract void checkCollision(int bulletPositions[][], boolean bulletActive[]);
 
 	public void drawEnemy(int frame){
@@ -93,38 +96,20 @@ public abstract class Aliens implements Bullets{
 		}
 	}
 
-	public void aShoot(){
 
-		setShootPosY();
-
-        if(0 == getShootRate()){
-            this.shoot = true;
-            setShootRate(25);
-            shoot(this.alienPositionX[this.r], this.r, this.numberBullet);
-            this.numberBullet++;
-                
-            if(this.numberBullet > 99){
-                this.numberBullet = 0;
-            }
-        }
-
-        timeShootRate();
-	}
+	//Aliens bullets features
+	//---------------------------------------------------------
 
 	public void randomPositionX(){
 		this.r = random.nextInt(10);
 	}
 
-
-
-	//Aliens bullets features
-	//---------------------------------------------------------
 	@Override
 	public void drawBullets(){
 
 		for(int i=0; i<100; i++){
 
-			if(this.bulletPositions[i][1] > 0 && this.active[i]){
+			if(this.bulletPositions[i][1] < this.screen[1] && this.active[i]){
 				this.bulletPositions[i][1] += this.speed;
 
 				DrawTextureEx(
@@ -142,11 +127,33 @@ public abstract class Aliens implements Bullets{
 		}
 	}
 
-    public void shoot(int enemyPositionX, int wichEnemy, int wichBullet){
+    public void shoot(){
 
-		this.bulletPositions[wichBullet][0] = (int)(enemyPositionX + this.enemyScale *32 / 2);
-	    this.bulletPositions[wichBullet][1] = (int)(this.enemyPositionY[wichEnemy] + this.enemyScale *32 / 4);
-	    this.active[wichBullet] = true;
+    	int enemyPositionX = this.alienPositionX[this.r];
+    	int wichEnemy = this.r;
+    	int wichBullet = this.numberBullet;
+
+    	if(0 == this.shootRate){
+            this.shoot = true;
+            this.shootRate = 25;
+
+	    	int positionY = 0;
+	    	if(!this.dead[wichEnemy][1]){
+	    		positionY = 1;
+	    	}
+
+			this.bulletPositions[wichBullet][0] = (int)(enemyPositionX + this.enemyScale *32 / 2);
+		    this.bulletPositions[wichBullet][1] = (int)(this.alienPositionY[positionY] + this.enemyScale *32 / 4);
+		    this.active[wichBullet] = true;
+
+		    	this.numberBullet++;
+	                
+	            if(this.numberBullet > 99){
+	                this.numberBullet = 0;
+	            }
+	        }
+
+        timeShootRate();
 
 	}
 

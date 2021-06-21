@@ -39,14 +39,14 @@ public class Enemy3 extends Aliens{
 	}
 
 	@Override
-	public void draw(){
+	public void draw(int whoCanShoot[]){
 
 				//Alien Bullets
-				/*randomPositionX();
-				if(!this.canNotShoot[this.r]){
-				aShoot();
+				randomPositionX();
+				if(whoCanShoot[this.r] == 2){
+				shoot();
 				}
-				drawBullets();*/
+				drawBullets();
 
 				//for 6 frames per sec in 60 frames game
 				if(this.frameSpeed <= 80 && this.frameSpeed > 70){
@@ -102,34 +102,40 @@ public class Enemy3 extends Aliens{
 	}
 
 	@Override
-	public void setShootPosY(){
+	public void setCanShoot(int whoCanShoot[]){ //ok
 		for(int i=0; i<10; i++){
-			if(this.canShoot[i]){
-				if(!this.dead[i][0]){
-					this.shootPosY[i] = this.alienPositionY[0];
-					setEnemyPositionY(this.alienPositionY[0], i);
-				}else{
-					this.shootPosY[i] = -1;
-					this.canNotShoot[i] = true;
+			if(whoCanShoot[i] == 2){
+				if(this.dead[i][0]){
+					whoCanShoot[i] = 3;
 				}
 			}
 		}
 	}
 
 	@Override
-	public void isDead(boolean isDead[][]){
-		for(int i=0; i<10; i++){
-			isDead[i][4] = this.dead[i][0];
-		}
-	}
+	public void shoot(){
 
-	@Override
-	public void setCanShoot(boolean isDead[][]){
-		for(int i=0; i<10; i++){
-			if(isDead[i][0] && isDead[i][1] && isDead[i][2] && isDead[i][3]){
-				this.canShoot[i] = true;
-			}
-		}
+    	int enemyPositionX = this.alienPositionX[this.r];
+    	int wichEnemy = this.r;
+    	int wichBullet = this.numberBullet;
+
+    	if(0 == this.shootRate){
+            this.shoot = true;
+            this.shootRate = 25;
+
+	    	this.bulletPositions[wichBullet][0] = (int)(enemyPositionX + this.enemyScale *32 / 2);
+	    	this.bulletPositions[wichBullet][1] = (int)(this.alienPositionY[0] + this.enemyScale *32 / 4);
+	    	this.active[wichBullet] = true;
+
+	    	this.numberBullet++;
+                
+            if(this.numberBullet > 99){
+                this.numberBullet = 0;
+            }
+        }
+
+        timeShootRate();
+
 	}
 
 	@Override
