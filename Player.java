@@ -13,17 +13,19 @@ public abstract class Player implements Bullets{
 	private float bulletScale;
 	private int tankPositionY;
 	private Texture2D bullet;
+	protected int bulletDamage;
 	//---------------------------------------------------------
 
 	protected int screen[] = new int[2]; //[0] - Screen Width; [1] - Screen Height
 	protected int tankPosition[] = new int[2]; //Position in X and Y
 	protected float tankScale;
 	protected int life;
+	protected int frameDying;
 
 	//Abstract methods
 	public abstract void draw();
 	public abstract void input(int player);
-	public abstract void checkCollision(int enemyBulletPositions[][], boolean enemyBulletActive[]);
+	public abstract void checkCollision(int enemyBulletPositions[][], boolean enemyBulletActive[], int enemyBulletDamage);
 
 	public Player(int screenWidth, int screenHeight, int tPY, float tS){
 
@@ -40,6 +42,7 @@ public abstract class Player implements Bullets{
 
 	//Player bullets features
 	//---------------------------------------------------------
+	@Override
 	public void drawBullets(){
 
 		for(int i=0; i<10; i++){
@@ -70,25 +73,36 @@ public abstract class Player implements Bullets{
 
 	}
 
+	@Override
     public int[][] getShootPositions(){
 		return this.bulletPositions;
 	}
 
+	@Override
 	public boolean[] getShootActive(){
 		return this.active;
 	}
 
+	@Override
 	public void setShootRate(int s){
 		this.shootRate = s;
 	}
+
+	@Override
 	public int getShootRate(){
 		return this.shootRate;
 	}
 
+	@Override
 	public void timeShootRate(){
 		if(this.shootRate > 0){
 			this.shootRate--;
 		}
+	}
+
+	@Override
+	public int getBulletDamage(){
+		return this.bulletDamage;
 	}
 	//---------------------------------------------------------
 

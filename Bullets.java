@@ -11,4 +11,6 @@ public interface Bullets{
     public int getShootRate();
 
     public void timeShootRate();
-}
+
+    public int getBulletDamage();
+} 

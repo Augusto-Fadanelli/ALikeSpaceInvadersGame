@@ -108,25 +108,25 @@ public class Main
                     }
 
                     //Player 1 bullets colisions
-                    enemy1.checkCollision(tank1.getShootPositions(), tank1.getShootActive());
-                    enemy2.checkCollision(tank1.getShootPositions(), tank1.getShootActive());
-                    enemy3.checkCollision(tank1.getShootPositions(), tank1.getShootActive());
+                    enemy1.checkCollision(tank1.getShootPositions(), tank1.getShootActive(), tank1.getBulletDamage());
+                    enemy2.checkCollision(tank1.getShootPositions(), tank1.getShootActive(), tank1.getBulletDamage());
+                    enemy3.checkCollision(tank1.getShootPositions(), tank1.getShootActive(), tank1.getBulletDamage());
 
                     //Aliens bullets colisions with player 1
-                    tank1.checkCollision(enemy1.getShootPositions(), enemy1.getShootActive());
-                    tank1.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
-                    tank1.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
+                    tank1.checkCollision(enemy1.getShootPositions(), enemy1.getShootActive(), enemy1.getBulletDamage());
+                    tank1.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive(), enemy2.getBulletDamage());
+                    tank1.checkCollision(enemy3.getShootPositions(), enemy3.getShootActive(), enemy3.getBulletDamage());
 
                     if(twoPlayers){
                         //Player 2 bullets colisions
-                        enemy1.checkCollision(tank2.getShootPositions(), tank2.getShootActive());
-                        enemy2.checkCollision(tank2.getShootPositions(), tank2.getShootActive());
-                        enemy3.checkCollision(tank2.getShootPositions(), tank2.getShootActive());
+                        enemy1.checkCollision(tank2.getShootPositions(), tank2.getShootActive(), tank2.getBulletDamage());
+                        enemy2.checkCollision(tank2.getShootPositions(), tank2.getShootActive(), tank2.getBulletDamage());
+                        enemy3.checkCollision(tank2.getShootPositions(), tank2.getShootActive(), tank2.getBulletDamage());
 
                         //Aliens bullets colisions with player 1
-                        tank2.checkCollision(enemy1.getShootPositions(), enemy1.getShootActive());
-                        tank2.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
-                        tank2.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive());
+                        tank2.checkCollision(enemy1.getShootPositions(), enemy1.getShootActive(), enemy1.getBulletDamage());
+                        tank2.checkCollision(enemy2.getShootPositions(), enemy2.getShootActive(), enemy2.getBulletDamage());
+                        tank2.checkCollision(enemy3.getShootPositions(), enemy3.getShootActive(), enemy3.getBulletDamage());
                     }
 
                     enemy1.setCanShoot(whoCanShoot);

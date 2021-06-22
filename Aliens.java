@@ -25,9 +25,11 @@ public abstract class Aliens implements Bullets{
 
 	//Mechanics and others
    	protected boolean dead[][] = new boolean[10][2];
+   	protected int life[][] = new int[10][2];
    	protected boolean active[] = new boolean[100];
 	protected int numberBullet = 0; //Informs wich bullet
 	protected int shootRate = 0;
+	protected int bulletDamage;
 	protected boolean direction; //true - Right, false - Left
 	Random random = new Random();
 	protected int r; //randon number
@@ -46,7 +48,7 @@ public abstract class Aliens implements Bullets{
 	//Abstract methods
 	public abstract void draw(int whoCanShoot[]);
 	public abstract void setCanShoot(int whoCanShoot[]);
-	public abstract void checkCollision(int bulletPositions[][], boolean bulletActive[]);
+	public abstract void checkCollision(int bulletPositions[][], boolean bulletActive[], int enemyBulletDamage);
 
 	public void drawEnemy(int frame){
 		for(int i=0; i<10; i++){
@@ -151,6 +153,11 @@ public abstract class Aliens implements Bullets{
 		if(this.shootRate > 0){
 			this.shootRate--;
 		}
+	}
+
+	@Override
+	public int getBulletDamage(){
+		return this.bulletDamage;
 	}
 
 }

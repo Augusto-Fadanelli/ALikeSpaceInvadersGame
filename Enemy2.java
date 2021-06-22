@@ -10,6 +10,8 @@ public class Enemy2 extends Aliens{
 
 		this.frameSpeed = 50;
 
+		this.bulletDamage = 2;
+
 		this.speed = (int)(screenHeight/360); //speed 1 in 640x360 resolution
 		this.alienScale = (float)(screenHeight/720.0f); //Alien Scale 0.5 in 640x360 resolution
 
@@ -22,6 +24,9 @@ public class Enemy2 extends Aliens{
 
 		for(int i=0; i<10; i++){
 			this.alienPositionX[i] = (int)(this.positionLimits[0] + i * 64);
+
+			this.life[i][0] = 2;
+			this.life[i][1] = 2;
 		}
 
 		this.direction = true;
@@ -81,7 +86,7 @@ public class Enemy2 extends Aliens{
 	}
 
 	@Override
-	public void checkCollision(int bulletPositions[][], boolean bulletActive[]){
+	public void checkCollision(int bulletPositions[][], boolean bulletActive[], int enemyBulletDamage){
 
 		for(int i=0; i<10; i++){ //10 bullets
 			if(bulletActive[i]){
@@ -96,8 +101,11 @@ public class Enemy2 extends Aliens{
 								&& bulletPositions[i][1] >= this.alienPositionY[j]){
 										if(!this.dead[x][j]){
 											bulletActive[i] = false;
+											this.life[x][j] -= enemyBulletDamage;
 										}
-										this.dead[x][j] = true;
+										if(this.life[x][j] <= 0){
+											this.dead[x][j] = true;
+										}
 							}
 							
 						}
