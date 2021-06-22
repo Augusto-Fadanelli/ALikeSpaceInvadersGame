@@ -7,13 +7,13 @@ A simple game like Space Invaders classic, developed with [Raylib](https://githu
 - [X] Menu Screen
 - [X] Battle Tanks
 - [X] Tank bullets
-- [ ] Tank collision
+- [X] Tank collision
 - [X] Aliens
-- [ ] Aliens bullets
+- [X] Aliens bullets
 - [X] Aliens collision
 - [X] Multiplayer (incomplete)
 - [X] Screen resolution system (incomplete)
-- [ ] Lifes
+- [X] Lifes
 - [ ] Score system
 - [ ] Ranking
 - [ ] Screen About
