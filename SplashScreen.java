@@ -49,7 +49,7 @@ public class SplashScreen extends Screen
 				LIGHTGRAY);
 
 			DrawText(
-				"Press ENTER to continue...", 
+				"Press SPACE to continue...", 
 				(int)((this.width - this.width / 12 * 5.2)/2), 
 				(int)(this.height/4*3), 
 				size(20), 

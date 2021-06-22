@@ -72,7 +72,7 @@ public class MenuScreen extends Screen
 				positionCentralize(getScreenWidth(), 1.7), 
 				(int)(getScreenHeight()/8*2 + size(170)), 
 				size(30), 
-				chooseMenuColor[4]);
+				GRAY); //chooseMenuColor[4]
 
 			//choose = 5
 			DrawText(
@@ -94,6 +94,8 @@ public class MenuScreen extends Screen
 				this.choose = 5;
 			}else if(this.choose == 3){ //Block Rank option
 				this.choose = 1;
+			}else if(this.choose == 5){ //Block About option
+				this.choose = 3;
 			}else{
 				this.choose--;
 			}
@@ -102,6 +104,8 @@ public class MenuScreen extends Screen
 				this.choose = 0;
 			}else if(this.choose == 1){ //Block Rank option
 				this.choose = 3;
+			}else if(this.choose == 3){ //Block About option
+				this.choose = 5;
 			}else{
 				this.choose++;
 			}
