@@ -1,8 +1,7 @@
-# ALikeSpaceInvadersGame ![Enemy2](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/enemy2.gif)
-![Uboa_UFO](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/uboa_ufo.gif)
+# ALikeSpaceInvadersGame ![Uboa_UFO](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/uboa_ufo.gif)
 A simple game like Space Invaders classic, developed with [Raylib](https://github.com/raysan5/raylib) and [Jaylib](https://github.com/electronstudio/jaylib).
 
-## The game is still in development
+## The game is still in development ![Enemy1](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/enemy1.gif)
 
 - [X] Splash screen
 - [X] Menu Screen
@@ -20,7 +19,7 @@ A simple game like Space Invaders classic, developed with [Raylib](https://githu
 - [ ] Screen About
 - [ ] Sounds
 
-## How to build
+## How to build ![Enemy2](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/enemy2.gif)
 
 1. Build [Raylib 3.0](https://github.com/raysan5/raylib/releases/tag/3.0.0)
 
@@ -42,7 +41,7 @@ javac -cp jaylib.jar *.java
 java -cp jaylib.jar;. Main
 ```
 
-## Some screenshot
+## Some screenshot ![Enemy3_Damage1](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/enemy3_damage1.gif)
 
 ![Single_Player](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/singlePlayer.jpg)
 
