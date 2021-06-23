@@ -1,4 +1,5 @@
 # ALikeSpaceInvadersGame
+![Enemy2](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/enemy2.gif)
 A simple game like Space Invaders classic, developed with [Raylib](https://github.com/raysan5/raylib) and [Jaylib](https://github.com/electronstudio/jaylib).
 
 ## The game is still in development
@@ -43,10 +44,14 @@ java -cp jaylib.jar;. Main
 
 ## Some screenshot
 
-![Menu](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/menu.png)
+![Single_Player](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/singlePlayer.jpg)
 
-![game1](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/game1.png)
+![Two_Players](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/twoPlayers.jpg)
 
-![game2](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/game2.png)
+![Splash](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/splashScreen.jpg)
+
+![Menu](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/menuScreen.jpg)
+
+![Video_Settings](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/screenshots/videoSettings.jpg)
 
 **Pixel art by Rain**
