@@ -1,7 +1,6 @@
-# ALikeSpaceInvadersGame
+# ALikeSpaceInvadersGame ![Enemy2](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/enemy2.gif)
 ![Uboa_UFO](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/uboa_ufo.gif)
 A simple game like Space Invaders classic, developed with [Raylib](https://github.com/raysan5/raylib) and [Jaylib](https://github.com/electronstudio/jaylib).
-![Enemy2](https://github.com/Augusto-Fadanelli/ALikeSpaceInvadersGame/blob/main/assets/sprites/gifs/enemy2.gif)
 
 ## The game is still in development
 
