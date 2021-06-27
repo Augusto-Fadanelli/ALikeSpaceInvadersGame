@@ -36,6 +36,9 @@ public class Main
         Texture2D background;
         int gameSpace[] = new int[4];
         int statusBar[] = new int[4];
+        boolean gameOver;
+        boolean win;
+        int timer = 0;
 
         gameSpace[0] = (int)(game.getScreenWidth() /2 - (5 * game.getScreenWidth() /8)/2);
         gameSpace[1] = 0;
@@ -48,14 +51,7 @@ public class Main
         statusBar[3] = (int)(game.getScreenHeight() - (game.getScreenHeight()/10*8 + game.getScreenHeight()/720 *64));
 
         //Textures
-        Texture2D ground = LoadTexture("assets/sprites/ground.png");
-
-        /*if(0 == op){
-            twoPlayers = false;
-        }else{
-            twoPlayers = true;
-        }*/
-                    
+        Texture2D ground = LoadTexture("assets/sprites/ground.png");                    
 
         background = LoadTexture("assets\\textures\\background_stage1.png");
 
@@ -70,11 +66,15 @@ public class Main
 
         int whoCanShoot[] = new int[10]; //0 - Enemy1; 1 - Enemy2; 2 - Enemy3; 3 - No one
 
-        BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 0); //Player 1
-        BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), twoPlayers, 1); //Player 2
+        BattleTank tank1 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), 0); //Player 1
+        BattleTank tank2 = new BattleTank(game.getScreenWidth(), game.getScreenHeight(), 1); //Player 2
 
         //-------------------------------------------------------
 
+        //Game loop
+        boolean firstTimeFlag = true;
+
+        //Music
         boolean musicFlag = true;
         boolean oneTimeFlag = true;
 
@@ -97,6 +97,15 @@ public class Main
 
                 case 1:
                     //Multiplayer
+
+                    if(firstTimeFlag){
+                        tank1.setPlayerPositions(twoPlayers);
+                        if(twoPlayers){
+                            tank2.setPlayerPositions(twoPlayers);
+                        }
+
+                        firstTimeFlag = false;
+                    }
 
                     if(musicFlag){
                         musicFlag = false;
@@ -185,10 +194,38 @@ public class Main
 
                     EndDrawing();
 
+                    //Check game over                    
+                    if(!twoPlayers){
+                        gameOver = tank1.gameOver();
+                    }else{
+                        gameOver = tank2.gameOver();
+                        if(gameOver){
+                        gameOver = tank1.gameOver();
+                        }
+                    }
+                    if(gameOver){
+                        if(180 <= timer){ //wait 3 sec
+                            op = 6;
+                        }
+                        timer++;
+                    }
+
+                    //Check win
+                    win = enemy1.win();
+                    if(win){
+                        win = enemy2.win();
+                        if(win){
+                            win = enemy3.win();
+                        }
+                    }
+
                     //Return to the Menu
-                    /*if(IsKeyPressed(KEY_T)){
-                        op = -1;
-                    }*/
+                    if(win){
+                        if(180 <= timer){ //wait 3 sec
+                            op = -1;
+                        }
+                        timer++;
+                    }
 
                 break;
                 case 2:
@@ -207,6 +244,13 @@ public class Main
                     //Exit
                     exitFlag = false;
                 break;
+                case 6:
+                    //game over
+                    game.drawGameOver();
+                    if(IsKeyDown(KEY_SPACE)){
+                        op = -1;
+                    }
+                break;
                 default:
                     //Menu (choice: -1)
                     /*if(!musicFlag){
@@ -217,6 +261,20 @@ public class Main
 
                     menu.draw();
                     op = menu.getChoice();
+
+                    //Reset game
+                    tank1.reset();
+                    if(twoPlayers){
+                        tank2.reset();
+                    }
+                    twoPlayers = true;
+                    timer = 0;
+                    enemy1.reset();
+                    enemy2.reset();
+                    enemy3.reset();
+
+                    //re-initialize flags
+                    firstTimeFlag = true;
             }
         }  
 

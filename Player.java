@@ -21,11 +21,13 @@ public abstract class Player implements Bullets{
 	protected float tankScale;
 	protected int life;
 	protected int frameDying;
+	protected int whichPlayer;
 
 	//Abstract methods
 	public abstract void draw();
 	public abstract void input(int player);
 	public abstract void checkCollision(int enemyBulletPositions[][], boolean enemyBulletActive[], int enemyBulletDamage);
+	public abstract void reset();
 
 	public Player(int screenWidth, int screenHeight, int tPY, float tS){
 
@@ -108,6 +110,30 @@ public abstract class Player implements Bullets{
 
 	public int getLife(){
 		return this.life;
+	}
+
+	public void setPlayerPositions(boolean twoPlayers){
+
+		if(twoPlayers){
+            if(0 == whichPlayer){
+                this.tankPosition[0] = (int)(this.screen[0]/20*6); //Break screen width in 20 parts
+            }else{
+                this.tankPosition[0] = (int)(this.screen[0]/20*13);
+            }
+        }else{
+            this.tankPosition[0] = (int)(this.screen[0]/2);
+        }
+
+        this.tankPosition[1] = (int)(this.screen[1]/10*8); //Break screen height in 10 parts
+
+	}
+
+	public boolean gameOver(){
+		if(this.life <= 0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }

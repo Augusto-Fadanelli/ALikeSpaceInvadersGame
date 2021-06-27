@@ -22,13 +22,19 @@ public class BattleTank extends Player
     private int frame = 0;
 
     //Mechanics and Others
-    private boolean player2 = false; //Informs if there's two players
     private boolean shoot = false;
-    private int numberBullet = 0; //Informs wich bullet
+    private int numberBullet = 0; //Informs which bullet
 
-    public BattleTank(int screenWidth, int screenHeight, boolean p2, int player){
+    public BattleTank(int screenWidth, int screenHeight, int whichPlayer){
+
+        /*whichPlayer
+        * 0 - Player 1
+        * 1 - Player 2
+        */
 
         super(screenWidth, screenHeight, (int)(screenHeight/10*8), (float)screenHeight/720);
+
+        this.whichPlayer = whichPlayer;
 
         this.life = 6;
         this.bulletDamage = 1;
@@ -37,20 +43,9 @@ public class BattleTank extends Player
 
         //Set positions of player 1 and player 2
         this.speed = (int)(screenHeight/180);
-        if(p2){
-            if(0 == player){
-                this.tankPosition[0] = (int)(screenWidth/20*6); //Break screen width in 20 parts
-            }else{
-                this.tankPosition[0] = (int)(screenWidth/20*13);
-            }
-        }else{
-            this.tankPosition[0] = (int)(screenWidth/2);
-        }
+        
 
-        this.tankPosition[1] = (int)(screenHeight/10*8); //Break screen height in 10 parts
-        this.player2 = p2;
-
-        if(0 == player){
+        if(0 == this.whichPlayer){
             //Load Sprites
             this.battleTank[0] = LoadTexture("assets/sprites/wr/green_tank_1.png");
             this.battleTank[1] = LoadTexture("assets/sprites/wr/green_tank_2.png");
@@ -186,49 +181,10 @@ public class BattleTank extends Player
 
     @Override
     public void input(int player){ //1 or 2
-        if(1 == player){
-            if (IsKeyDown(KEY_S)){
+        if(this.life > 0){
+            if(1 == player){
+                if (IsKeyDown(KEY_S)){
 
-                this.direction = 1;
-
-                if(this.tankPosition[0] > this.positionLimits[1]){
-                    this.tankPosition[0] = this.positionLimits[1];
-                }else{
-                    this.tankPosition[0] += this.speed;
-                }
-
-            } 
-            if (IsKeyDown(KEY_A)){
-                
-                this.direction = -1;
-
-                if(this.tankPosition[0] < this.positionLimits[0]){
-                    this.tankPosition[0] = this.positionLimits[0];
-                }else{
-                    this.tankPosition[0] -= this.speed;
-                }
-
-            }
-            if (IsKeyDown(KEY_SPACE)){
-                if(0 == getShootRate()){
-                    this.shoot = true;
-                    setShootRate(25);
-                    if(this.life > 0){
-                        shoot(this.tankPosition[0], this.numberBullet);
-                    }
-                    this.numberBullet++;
-                    if(this.numberBullet > 9){
-                        this.numberBullet = 0;
-                    }
-                }
-            }else if(getShootRate() <= 0){
-                    this.shoot = false;
-            }
-
-            timeShootRate();
-
-        }else{
-            if (IsKeyDown(KEY_RIGHT)){
                     this.direction = 1;
 
                     if(this.tankPosition[0] > this.positionLimits[1]){
@@ -236,34 +192,74 @@ public class BattleTank extends Player
                     }else{
                         this.tankPosition[0] += this.speed;
                     }
-            }
-            if (IsKeyDown(KEY_LEFT)){
-                this.direction = -1;
 
-                if(this.tankPosition[0] < this.positionLimits[0]){
-                    this.tankPosition[0] = this.positionLimits[0];
-                }else{
-                    this.tankPosition[0] -= this.speed;
-                }
-            }
-            if (IsKeyDown(KEY_M)){
-                if(0 == getShootRate()){
-                    this.shoot = true;
-                    setShootRate(25);
-                    if(this.life > 0){
-                        shoot(this.tankPosition[0], this.numberBullet);
+                } 
+                if (IsKeyDown(KEY_A)){
+                    
+                    this.direction = -1;
+
+                    if(this.tankPosition[0] < this.positionLimits[0]){
+                        this.tankPosition[0] = this.positionLimits[0];
+                    }else{
+                        this.tankPosition[0] -= this.speed;
                     }
-                    this.numberBullet++;
-                    if(this.numberBullet > 9){
-                        this.numberBullet = 0;
-                    }
+
                 }
+                if (IsKeyDown(KEY_SPACE)){
+                    if(0 == getShootRate()){
+                        this.shoot = true;
+                        setShootRate(25);
+                        if(this.life > 0){
+                            shoot(this.tankPosition[0], this.numberBullet);
+                        }
+                        this.numberBullet++;
+                        if(this.numberBullet > 9){
+                            this.numberBullet = 0;
+                        }
+                    }
+                }else if(getShootRate() <= 0){
+                        this.shoot = false;
+                }
+
+                timeShootRate();
+
             }else{
-                this.shoot = false;
-            }
-            timeShootRate();
-        }
+                if (IsKeyDown(KEY_RIGHT)){
+                        this.direction = 1;
 
+                        if(this.tankPosition[0] > this.positionLimits[1]){
+                            this.tankPosition[0] = this.positionLimits[1];
+                        }else{
+                            this.tankPosition[0] += this.speed;
+                        }
+                }
+                if (IsKeyDown(KEY_LEFT)){
+                    this.direction = -1;
+
+                    if(this.tankPosition[0] < this.positionLimits[0]){
+                        this.tankPosition[0] = this.positionLimits[0];
+                    }else{
+                        this.tankPosition[0] -= this.speed;
+                    }
+                }
+                if (IsKeyDown(KEY_M)){
+                    if(0 == getShootRate()){
+                        this.shoot = true;
+                        setShootRate(25);
+                        if(this.life > 0){
+                            shoot(this.tankPosition[0], this.numberBullet);
+                        }
+                        this.numberBullet++;
+                        if(this.numberBullet > 9){
+                            this.numberBullet = 0;
+                        }
+                    }
+                }else{
+                    this.shoot = false;
+                }
+                timeShootRate();
+            }
+        }
     }
 
     public void setDirection(int d){ //-1 Left, 1 Right
@@ -302,6 +298,12 @@ public class BattleTank extends Player
 
         }
 
+    }
+
+    @Override
+    public void reset(){
+        this.life = 6;
+        this.frameDying = 50;
     }
 
 }

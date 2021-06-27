@@ -8,8 +8,6 @@ public class Enemy1 extends Aliens{
 
 		super(screenWidth, screenHeight);
 
-		this.frameSpeed = 30;
-
 		this.bulletDamage = 1;
 
 		this.speed = (int)(screenHeight/360); //speed 1 in 640x360 resolution
@@ -17,19 +15,9 @@ public class Enemy1 extends Aliens{
 
 		this.alienPositionY[0] = (int)(screenHeight /8 + 64 * this.alienScale * posY);
 		this.alienPositionY[1] = (int)(screenHeight /8 + 64 * this.alienScale * (posY + 1));
-		//this.alienPositionY = (int)(screenHeight /4);
 
 		this.positionLimits[0] = (int)(screenWidth /2 - (5 * screenWidth /8)/2);
 		this.positionLimits[1] = this.positionLimits[0] + (int)(5 * screenWidth /8) - (int)this.alienScale * 64;
-
-		for(int i=0; i<10; i++){
-			this.alienPositionX[i] = (int)(this.positionLimits[0] + i * 64);
-
-			this.life[i][0] = 1;
-			this.life[i][1] = 1;
-		}
-
-		this.direction = true;
 
 		this.alienSprites[0] = LoadTexture("assets/sprites/wr/enemy1_1.png");
 		this.alienSprites[1] = LoadTexture("assets/sprites/wr/enemy1_2.png");
@@ -110,6 +98,20 @@ public class Enemy1 extends Aliens{
 
 		}
 
+	}
+
+	@Override
+	public void reset(){
+		this.frameSpeed = 30;
+		this.direction = true;
+
+		for(int i=0; i<10; i++){
+			for(int j=0; j<2; j++){
+				dead[i][j] = false;
+				this.life[i][j] = 1;
+			}
+			this.alienPositionX[i] = (int)(this.positionLimits[0] + i * 64);			
+		}
 	}
 
 }

@@ -49,6 +49,7 @@ public abstract class Aliens implements Bullets{
 	public abstract void draw(int whoCanShoot[]);
 	public abstract void setCanShoot(int whoCanShoot[]);
 	public abstract void checkCollision(int bulletPositions[][], boolean bulletActive[], int enemyBulletDamage);
+	public abstract void reset();
 
 	public void drawEnemy(int frame){
 		for(int i=0; i<10; i++){
@@ -158,6 +159,20 @@ public abstract class Aliens implements Bullets{
 	@Override
 	public int getBulletDamage(){
 		return this.bulletDamage;
+	}
+
+	public boolean win(){
+		boolean allDead = true;
+
+		for(int i=0; i<10; i++){
+			for(int j=0; j<2; j++){
+				if(!dead[i][j]){
+					allDead = false;
+				}
+			}
+		}
+
+		return allDead;
 	}
 
 }
